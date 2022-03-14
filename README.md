@@ -39,10 +39,10 @@ All TApps has three major parts that running in three different locations.
 ## Front end 
 This is the typical JS application (for webapp), or mobile applicaiton (for mobile app). They are running inside a browser or a mobile devices.
 
-## Back end actor
+## Back end [[actor]]
 This WebAssembly code is running inside a hosting nodes. The hosting node is a miners computer which has CML planted. It is similar to the server logic running in backend servers or application servers in traditional cloud computing architect.
 
-## State machine actor
+## State machine [[actor]]
 This WebAssembly code is running inside the state machine 's [[mini-runtime]]. It is similar to the stored procedure (SQL for example code) in traditional 3 tier architect's database.
 
 ## 3-tiers architect basic workflow
