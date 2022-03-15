@@ -1,79 +1,72 @@
-# Hi George, this is draft branch. Please delete this line before commit
-# What is TEA Party
+**TEA Party** is a demo application running on the TEA Project. 
 
-TEA Party is a demo application running on TEA Project. 
+We built TEA Party to show: 
 
-We build TEA Party in order to demostrate 
+- What a typical TApp looks like.
 
-- What a typical TApp looks like
+- The building blocks of a typical TApp.
 
-- The building blocks of a typical TApp
+- How to use Tea Party as a boilderplate to build your own TApps.
 
-- How to use Tea Party as a boilderplate to build your own TApps
+The TEA Party TApp is a useful social media application. Users can post messages to a public board as well as send private messages with notifications.
 
-  
+As is the case with all TApps, TEA Party showcases the special features that are beyond the capabilities of other cloud based internet (web 2.0) applications. Instead of centralized server(s) hosting the app, the individual miners of the TEA network host TApps based solely on their own profitability. The inherent decentralization that all TApps including the TEA Party share gives these apps even more unique features:
 
-TEA Party is a useful social media application. User can post message to public board, send private message with notification.
+- They cannot be turned off by any centralized source of power. As long as there are a minimal number of miners hosting any particular application, it will continue to run forever.
 
-  
+- No one, including the host miner, can control or censor the content. The content is owned and protected by its creator's private key. A miner can choose to stop hosting the TApp, but it cannot selectively choose what content to show or hide.
 
-As all other TApps, TEA party shows the typical specities beyond other cloud based internet application (web2.0) applications. There is a centralized server(s) hosting the app. The individual miners host this application sole by their own profitability consideration. Because of this decentralization mother nature, all TApps include TEA Party:
+- There's no free lunch. Every action that costs any computing resources needs to be paid by someone. In TEA Party's particular case, every message sent need to be paid to be paid for. Additional charges also apply to store the message or to notify the recipient. 
 
-- Cannot be turn off by any super power. As long as there are a minimal number of miners host this application, it will run forever
+In order to get the features above, the underlying technical layer is very different from the existing cloud computing and blockchain tech stacks. It's a new tech stack that's based on recent technologies. 
 
-- No one, including the host miner can control sensorship of the content. The content is owned and protected by their creator's private key. A miner can choose to stop hosting but cannot selectively choose what content to show or hide.
+The following sections will explain the cutting edge technologies used in the TEA Party. We hope by explaining the underlying technologies and how they work together will help you make your own TEA applications (TApps).
 
-- There is no free lunch. Every action that cost any computing resources need to get paid by someone. In TEA Party's particular case, every message need to be paid to send, to store, to notify receipiant. 
+# Three Major Parts
+All TApps have three major parts that run in three different locations.
 
-  
+## Front-end 
+This is a typical JS application (for webapp), or mobile application (for mobile app). They're running inside of a browser or mobile device.
 
-In order to get the features above, the under technical layer is very different from existing cloud computing and blockchain. It is a new tech stack based on later 2020's technologies. 
-
-  
-
-We will go through the cutting edge technologies in TEA Party, and tutor you around and help you make your own TEA Applications (TApp).
-
-  
-
-# Three major parts
-All TApps has three major parts that running in three different locations.
-## Front end 
-This is the typical JS application (for webapp), or mobile applicaiton (for mobile app). They are running inside a browser or a mobile devices.
-
-## Back end [[actor]]
-This WebAssembly code is running inside a hosting nodes. The hosting node is a miners computer which has CML planted. It is similar to the server logic running in backend servers or application servers in traditional cloud computing architect.
+## Back-end [[actor]]
+This WebAssembly code is running inside of a hosting node. The hosting node is a miner's computer which has a CML planted. It's similar to the server logic running in backend servers or application servers in the traditional cloud computing architecture.
 
 ## State machine [[actor]]
-This WebAssembly code is running inside the state machine 's [[mini-runtime]]. It is similar to the stored procedure (SQL for example code) in traditional 3 tier architect's database.
+This WebAssembly code is running inside the state machine's [[mini-runtime]]. It's similar to the stored procedure (SQL for example code) in the traditional 3-tier architecture's database.
 
-## 3-tiers architect basic workflow
-The above 3 components are directly mapped to the traditional 3 tier architect in the cloud computing applicaiton.
+## 3-tier architecture basic workflow
+The above 3 components are directly mapped to the traditional 3-tier architecture in the cloud computing application.
 
-The basic workflow would be this: (let's use web tapp for example)
-- The user traffic user action in front end. Javascript web client catch the user action, generate a web request sending to the backend
-- Backend receives the web request, running the Tea Party back end code (we call it backend actor) to handle anything that do not need state machine(traditional we call it database). But when it will need to query or update a state in the state machine, it will need to genreate a request to the state machine tier. Those are query (do not change state) and Command (potentially change the state)
-- The query and command is handled by the state machines replications. For querys, it will look up local state and send result back. For command, as one of the replications, it should not modify on their own, Instead, it generate a txn and put it in a global queue, we call the queue the [[conveyor]]. The replicas run a Proof of Time consensus to garantee that all state machine in all replicas get the same order of txns, so that their state can always keep identity after execute the command. This is the same as a typical distributed database system.
-# The requiements of building TApps
-In this section, we will list the knowledge and tools you will need to build TApps.
+The basic workflow would be this: 
+(let's use a web-based TApp for the example)
+
+- The user generates a user action in the front-end. The Javascript web client catches the user action, generates a web request, and sends it to the backend.
+- The back-end receives the web request and runs the Tea Party back-end code (we call it the back-end actor) to handle anything that does not need the state machine (traditionally, this is referred to as a database). But when it needs to query or update a state in the state machine, it will need to genreate a request to the state machine tier. These can be broken down into queries (will not change the state) and commands (potentially could change the state).
+- The queries and commands are handled by the state machine replications. For queries, it will look up the local state and send the result back. For commands, as one of the replications, it should not modify on its own. Instead, it generates a txn and puts it in a global queue that we call the [[conveyor]]. The replicas run a Proof of Time consensus to guarantee that all state machines in all replicas get the same order of txns. This ensures that their state can always be kept identical after executing the command. This is the same methodology as is typically used by a distributed database system.
+- 
+# Requirements of building TApps
+In this section, we'll list the knowledge and tools you'll need to build TApps.
 ## Tools
 ## Programming languages
 ## Architect knowledge
 ## Hardware
 
 # Code walk through
-In this section, we will walk through the tea party application sample code. 
+In this section, we'll walk through the TEA Party application's sample code. 
+
 The steps are:
-- Clone the code to local
-- Install building tools
-- Understand the folder structure
-- Understand the compiling workflow
-- Run it
+
+- Clone the code to local.
+- Install the build tools.
+- Understand the folder structure.
+- Understand the compile workflow.
+- Run it.
+
 # Basic workflow
-In this section, we will learn the basic workflow between all the three tiers. How a user action get processed from the front end to the state machine layer and back to the user.
+In this section, we'll learn the basic workflow between all three tiers. How a user action get processed from the front-end to the state machine layer and back to the user.
 
 # The magical Proof of Time state machine
-In this section, we will explain how the distributed state machine works. How it handles the consensus from different replicas
+In this section, we'll explain how the distributed state machine works, including how it handles consensus among different replicas.
 
 # Understand WebAssembly Runtime
-In this section, we will go through how the WebAssembly code runs inside the [[mini-runtime]. 
-]
+In this section, we'll go through how the WebAssembly code runs inside the [[mini-runtime]]. 
