@@ -45,7 +45,7 @@ This WebAssembly code is running inside a hosting nodes. The hosting node is a m
 ## State machine [[actor]]
 This WebAssembly code is running inside the state machine 's [[mini-runtime]]. It is similar to the stored procedure (SQL for example code) in traditional 3 tier architect's database.
 
-## 3-tiers architect basic workflow
+## [[3-tiers architect]] basic workflow
 The above 3 components are directly mapped to the traditional 3 tier architect in the cloud computing applicaiton.
 
 The basic workflow would be this: (let's use web tapp for example)
