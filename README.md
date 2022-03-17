@@ -8,15 +8,15 @@ We built TEA Party to show:
 
 - How to use Tea Party as a boilderplate to build your own TApps.
 
-The TEA Party TApp is a useful social media application. Users can post messages to a public board as well as send private messages with notifications.
+The TEA Party TApp is a useful social media application. Users can post messages to a public board as well as send private messages with notifications. See [[how to use TEA Party]]
 
-As is the case with all TApps, TEA Party showcases the special features that are beyond the capabilities of other cloud based internet (web 2.0) applications. Instead of centralized server(s) hosting the app, the individual miners of the TEA network host TApps based solely on their own profitability. The inherent decentralization that all TApps including the TEA Party share gives these apps even more unique features:
+As is the case with all TApps, TEA Party showcases the special features that are beyond the capabilities of other cloud based internet (web 2.0) applications. Instead of centralized server(s) hosting the app, the individual miners of the TEA network host TApps based solely on their own [[hosting profitability]]. The inherent decentralization that all TApps including the TEA Party share gives these apps even more unique features:
 
 - They cannot be turned off by any centralized source of power. As long as there are a minimal number of miners hosting any particular application, it will continue to run forever.
 
 - No one, including the host miner, can control or censor the content. The content is owned and protected by its creator's private key. A miner can choose to stop hosting the TApp, but it cannot selectively choose what content to show or hide.
 
-- There's no free lunch. Every action that costs any computing resources needs to be paid by someone. In TEA Party's particular case, every message sent need to be paid to be paid for. Additional charges also apply to store the message or to notify the recipient. 
+- There's no free lunch. Every action that costs any computing resources needs to be paid by someone. In TEA Party's particular case, every message sent need to be paid for. Additional charges also apply to store the message or to notify the recipient.  Further link [[Where the message is stored?]]
 
 In order to get the features above, the underlying technical layer is very different from the existing cloud computing and blockchain tech stacks. It's a new tech stack that's based on recent technologies. 
 
@@ -41,7 +41,7 @@ The basic workflow would be this:
 (let's use a web-based TApp for the example)
 
 - The user generates a user action in the front-end. The Javascript web client catches the user action, generates a web request, and sends it to the backend.
-- The back-end receives the web request and runs the Tea Party back-end code (we call it the back-end actor) to handle anything that does not need the state machine (traditionally, this is referred to as a database). But when it needs to query or update a state in the state machine, it will need to genreate a request to the state machine tier. These can be broken down into queries (will not change the state) and commands (potentially could change the state).
+- The back-end receives the web request and runs the Tea Party back-end code (we call it the back-end actor) to handle anything that does not need the state machine (traditionally, this is referred to as a database). But when it needs to query or update a state in the state machine, it will need to genreate a request to the state machine tier. These can be broken down into [[queries]] (will not change the state) and [[commands]] (potentially could change the state).
 - The queries and commands are handled by the state machine replications. For queries, it will look up the local state and send the result back. For commands, as one of the replications, it should not modify on its own. Instead, it generates a txn and puts it in a global queue that we call the [[conveyor]]. The replicas run a Proof of Time consensus to guarantee that all state machines in all replicas get the same order of txns. This ensures that their state can always be kept identical after executing the command. This is the same methodology as is typically used by a distributed database system.
 - 
 # Requirements of building TApps
