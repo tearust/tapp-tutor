@@ -32,7 +32,7 @@ This is a typical JS application (for webapp), or mobile application (for mobile
 This WebAssembly code is running inside of a hosting node. The hosting node is a miner's computer which has a CML planted. It's similar to the server logic running in backend servers or application servers in the traditional cloud computing architecture.
 
 ## State machine [[actor]]
-This WebAssembly code is running inside the state machine's [[mini-runtime]]. It's similar to the stored procedure (SQL for example code) in the traditional 3-tier architecture's database.
+This WebAssembly code is running inside the state machine's [[mini-runtime]]. It's equivalent to the stored procedure (SQL for example code) in the traditional 3-tier architecture's database.
 
 ## [[3-tiers architect]] basic workflow
 The above 3 components are directly mapped to the traditional 3-tier architecture in the cloud computing application.
@@ -47,10 +47,24 @@ The basic workflow would be this:
 # Requirements of building TApps
 In this section, we'll list the knowledge and tools you'll need to build TApps.
 ## Tools
+You will need 
+- a Linux or Mac. 
+- Docker and docker-compose installed
+- Rust compiler
+- Web browser
+
+to build and run the demo locally.
+If you want too build your own tapp and try to host your own app in your own mining node. you will also need a mining node. A mining node is any type of TEA node with CML planted in. If you do not own any physical TEA machine, you can rent a Amazon Nitro VM. It is a TEA compatible hardware available to rent.
 ## Programming languages
+The demo tea party app is written in 
+- Front end, using js and Vue framework
+- Backend and State machien actors are written using Rust that compile to WebAssembly.
+
+TEA Project doesn't require the developer to use Rust programming language. You can use any other programming langauges that compile to WebAssembly. But at this moment, to understand our existing demo code, you will need to use Rust langauge. 
+
 ## Architect knowledge
 ## Hardware
-
++
 # Code walk through
 In this section, we'll walk through the TEA Party application's sample code. 
 
