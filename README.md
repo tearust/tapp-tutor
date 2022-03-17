@@ -64,7 +64,17 @@ TEA Project doesn't require the developer to use Rust programming language. You 
 
 ## Architect knowledge
 ## Hardware
-+
+The TEA Project is very different than many other blockchain projects. TEA rely on two types of hardware to reach special consensus: 
+- TPM
+- GPS
+
+The TPM is a popular security chip exists in almost every computer and most phones. We rely on TPM to generate Proof of Trust to be remote attestated by verifier.
+
+We need GPS but not for navigation. Our TEA node is not supposed to moving on the street. We need to use the acurate time stamp from GPS satellates. Every GPS sat has a atomic clock, and it constantly sending time signal to any GPS receiver. We use this as the source to timestamp for every events.
+
+If you just want to run the code in your local simulator, you do not need such hardware. You can run it using docker and our simulator.
+
+If you want to host your application in the production environment, you will need a TEA node. If you do not own one, the easiest way is to rent a Amazon Nitro VM.
 # Code walk through
 In this section, we'll walk through the TEA Party application's sample code. 
 
