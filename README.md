@@ -6,13 +6,13 @@ We built TEA Party to show:
 
 - The building blocks of a typical TApp.
 
-- How to use Tea Party as a boilderplate to build your own TApps.
+- How to use Tea Party as a boilerplate to build your own TApps.
 
 The TEA Party TApp is a useful social media application. Users can post messages to a public board as well as send private messages with notifications. See [[how to use TEA Party]]
 
 As is the case with all TApps, TEA Party showcases the special features that are beyond the capabilities of other cloud based internet (web 2.0) applications. Instead of centralized server(s) hosting the app, the individual miners of the TEA network host TApps based solely on their own [[hosting profitability]]. The inherent decentralization that all TApps including the TEA Party share gives these apps even more unique features:
 
-- They cannot be turned off by any centralized source of power. As long as there are a minimal number of miners hosting any particular application, it will continue to run forever.
+- They cannot be turned off by any centralized power. As long as there are a minimal number of miners hosting any particular application, it will continue to run forever.
 
 - No one, including the host miner, can control or censor the content. The content is owned and protected by its creator's private key. A miner can choose to stop hosting the TApp, but it cannot selectively choose what content to show or hide.
 
@@ -46,36 +46,43 @@ The basic workflow would be this:
 - 
 # Requirements of building TApps
 In this section, we'll list the knowledge and tools you'll need to build TApps.
+
 ## Tools
-You will need 
+To build and run the demo locally, you will need:
+
 - a Linux or Mac. 
-- Docker and docker-compose installed
-- Rust compiler
+- Docker and docker-compose installed.
+- Rust compiler.
 - Web browser
 
-to build and run the demo locally.
-If you want too build your own tapp and try to host your own app in your own mining node. you will also need a mining node. A mining node is any type of TEA node with CML planted in. If you do not own any physical TEA machine, you can rent a Amazon Nitro VM. It is a TEA compatible hardware available to rent.
+If you want too build your own TApp and try to host your own app in your own mining node. you will also need a mining node. A mining node is any type of TEA node with CML planted in it. If you don't own a physical TEA machine, you can rent an Amazon Nitro VM which is TEA-compatible.
+
 ## Programming languages
-The demo tea party app is written in 
-- Front end, using js and Vue framework
-- Backend and State machien actors are written using Rust that compile to WebAssembly.
 
-TEA Project doesn't require the developer to use Rust programming language. You can use any other programming langauges that compile to WebAssembly. But at this moment, to understand our existing demo code, you will need to use Rust langauge. 
+The demo TEA party app is written in the following languages:
 
-## Architect knowledge
+- **Front-end** is written in JS and the Vue framework.
+- **Back-end and State machien actors** are written using Rust and then compiled to WebAssembly.
+
+The TEA Project doesn't require the developer to use the Rust programming language. You can use any programming language that compiles to WebAssembly. But at this moment, in order to understand our existing demo code, you'll need to use the Rust langauge. 
+
+## Architecture knowledge
 ## Hardware
-The TEA Project is very different than many other blockchain projects. TEA rely on two types of hardware to reach special consensus: 
+The TEA Project is very different from many other blockchain projects. TEA relies on two types of hardware in order to reach special consensus: 
+
 - TPM
 - GPS
 
-The TPM is a popular security chip exists in almost every computer and most phones. We rely on TPM to generate Proof of Trust to be remote attestated by verifier.
+The TPM is a popular security chip that exists in almost every computer and most phones. We rely on each node's TPM to generate Proof of Trust data that can undergo remote attestation by a verifier.
 
-We need GPS but not for navigation. Our TEA node is not supposed to moving on the street. We need to use the acurate time stamp from GPS satellates. Every GPS sat has a atomic clock, and it constantly sending time signal to any GPS receiver. We use this as the source to timestamp for every events.
+We need GPS but we don't use this for navigation. Our TEA nodes are stationary and not moving on the street. Instead of location, we use the acurate time stamps from GPS satellites. Every GPS satellite has an atomic clock, and it constantly sends time signals to any terrestrial GPS receiver. We use this as the source of the time stamps for all events.
 
-If you just want to run the code in your local simulator, you do not need such hardware. You can run it using docker and our simulator.
+If you just want to run the code in your local simulator, you don't need such hardware. You can run it using docker and our simulator.
 
 If you want to host your application in the production environment, you will need a TEA node. If you do not own one, the easiest way is to rent a Amazon Nitro VM.
+
 # Code walk through
+
 In this section, we'll walk through the TEA Party application's sample code. 
 
 The steps are:
