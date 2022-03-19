@@ -17,4 +17,4 @@ The end goal of the conveyor algorithm is to reach a consensus on the order of t
 - From the execution point, the transactions are sent to the state machine actor.
 - The state machine actor updates its state according to the transactions the replicas send to it.
 
-![3](https://user-images.githubusercontent.com/86096370/159111315-0b2cfe5f-1533-4dd3-b15a-a1d27bbed874.png)
+![3](https://user-images.githubusercontent.com/86096370/159133556-678886b8-3d81-456e-a623-898be3bd1a41.png)
