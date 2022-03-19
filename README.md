@@ -25,7 +25,7 @@ The following sections will explain the cutting edge technologies used in the TE
 # Three Major Parts
 All TApps have three major parts that run in three different locations.
 
-## Front-end 
+## [[front end | Front end]]
 This is a typical JS application (for webapp), or mobile application (for mobile app). They're running inside of a browser or mobile device.
 
 ## Back-end [[actor]]
@@ -34,7 +34,7 @@ This WebAssembly code is running inside of a hosting node. The hosting node is a
 ## State machine [[actor]]
 This WebAssembly code is running inside the state machine's [[mini-runtime]]. It's equivalent to the stored procedure (SQL for example code) in the traditional 3-tier architecture's database.
 
-## [[3-tiers architect]] basic workflow
+# [[3-tier-architecture]] basic workflow
 The above 3 components are directly mapped to the traditional 3-tier architecture in the cloud computing application.
 
 The basic workflow would be this: 
@@ -44,7 +44,21 @@ The basic workflow would be this:
 - The back-end receives the web request and runs the Tea Party back-end code (we call it the back-end actor) to handle anything that does not need the state machine (traditionally, this is referred to as a database). But when it needs to query or update a state in the state machine, it will need to genreate a request to the state machine tier. These can be broken down into [[queries]] (will not change the state) and [[commands]] (potentially could change the state).
 - The queries and commands are handled by the state machine replications. For queries, it will look up the local state and send the result back. For commands, as one of the replications, it should not modify on its own. Instead, it generates a txn and puts it in a global queue that we call the [[conveyor]]. The replicas run a Proof of Time consensus to guarantee that all state machines in all replicas get the same order of txns. This ensures that their state can always be kept identical after executing the command. This is the same methodology as is typically used by a distributed database system.
 
-# Comparison with cloud webapp 3-tier architect
+# Storage
+There are three types of storage options for different use cases.
+- OrbitDb: Use to large blob storage based on IPFS. It is running on [[Hosting CML]]
+- State: Usually used to store account balance. It is inside [[State Machine]]
+- GlueSQL: A distributed SQL server instances. It is inside [[State Machine]]
+
+Comparison between three storage options
+
+| Storage options | Relational? | Cost | Consistency type | Use cases in Tea party |
+| -----------------|------------|-------|-------------------|--------------------|
+| OrbitDb (on IPFS) | Non-relational | Low | Eventually consistency | Message body & attachements |
+| State | Non-relational | High | Strong consistency | Account balance |
+| GlueSQL | Relational (SQL) | High | Strong consistency | Not yet in use but can be used in common SQL business logic|
+
+ # Comparison with cloud webapp 3-tier architect
 | User action | step  | Eth based dApps |cloud webapp | TEA project |  Note |
 |-------------|-------| ------|---------------|-------------|-------|
 | Click the app to start | Start a web app | N/A | Go to a domain name, usually https://yourapp.com | Click the app name in your TEA wallet, you'll receive a list of hosting CMLs. Click any of them | Cloud webapp has a centralized http/https domain name, but TEA doesn't have such a centralized control. Every hosting miner are seperate from each other |
