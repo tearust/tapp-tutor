@@ -70,15 +70,214 @@ The memory cache is used to temporary store the response/error message from the 
 
 # Interaction with OrbitDB
 
+Query OrbitDb example: load_message_list
+
+Please take a look at the function `pub fn load_message_list(req: &LoadMessageRequest) -> anyhow::Result<Vec<u8>> `  in message.rs file
+
+Focus on this lines
+```
+	let dbname = db_name(req.tapp_id, &req.channel);
+	let get_message_data = orbitdb::GetMessageRequest {
+		tapp_id: req.tapp_id,
+		dbname,
+		sender: match req.address.is_empty() {
+			true => "".to_string(),
+			false => req.address.to_string(),
+		},
+		utc: block - 2,
+	};
+
+	let res = orbitdb::OrbitBbsResponse::decode(
+		untyped::default()
+			.call(
+				tea_codec::ORBITDB_CAPABILITY_ID,
+				"bbs_GetMessage",
+				encode_protobuf(get_message_data)?,
+			)
+			.map_err(|e| anyhow::anyhow!("{}", e))?
+			.as_slice(),
+	)?;
+	
+```
+First, generate the dbname which will be used later in the parameter `get_message_data` of the future provider call `bbs_GetMessage`.
+
+the main function call is the provider call. `tea_codec::ORBITDB_CAPABILITY_ID` is the ID of the OrbitDB [[provider]]. the `bbs_GetMessage` is the API name to call. The parameter needs to `encode_protobuf` so that the provider can decode later. The response of this provider function call is a bytes buffer, so we have to `orbitdb::OrbitBbsResponse::decode` to a regular `res` data structure.
+
+These lines are the typical way to call a provider. You can find such pattern every where in TEA Project.
+
+The rest code is easy to understand. The data respond from OrbitDb provider turns to the message_item list. This list is return to the [[front end]] caller. Finally show in the UI in browser.
+
 # Interaction with State Machine
 
 Usually there are two kinds of requests that need to send to [[State Machine]] to handle. They are either [[queries]]or [[commands]].
 
-We can use two typical request to explain in detail
+## Command example:  post_message
+The function `post_message` sends a txn (we sometime call it  [[Commands]]) to [[State Machine]].  The following code send the txn:
+```
+	send_txn(
+		"post_message",
+		&uuid,
+		bincode::serialize(req)?,
+		txn_bytes,
+		&tea_codec::ACTOR_PUBKEY_PARTY_CONTRACT.to_string(),
+	)?;
+```
+In this function call, `"post_message"` is the name of API that [[statemachine-actor]] can handle.  `uuid` is the nonce that the back end actor can later check the execution result. `txn_bytes` is the body of txn. 
 
-### Query OrbitDb example: load_message_list
+Let's follow the send_txn code in request.rs:
+```
+pub fn send_txn(
+	action_name: &str,
+	uuid: &str,
+	req_bytes: Vec<u8>,
+	txn_bytes: Vec<u8>,
+	txn_target: &str,
+) -> anyhow::Result<()> {
+	let ori_uuid = str::replace(&uuid, "txn_", "");
+	let action_key = uuid_cb_key(&ori_uuid, "action_name");
+	let req_key = uuid_cb_key(&ori_uuid, "action_req");
+	help::set_mem_cache(&action_key, bincode::serialize(&action_name)?)?;
+	help::set_mem_cache(&req_key, req_bytes.clone())?;
 
-Please take a look at the function `pub fn load_message_list(req: &LoadMessageRequest) -> anyhow::Result<Vec<u8>> `  in message.rs file
+	info!(
+		"start to send txn request for {} with uuid [{}]",
+		&action_name, &uuid
+	);
+	p2p_send_txn(txn_bytes, uuid.to_string(), txn_target.to_string())?;
+	info!("finish to send txn request...");
 
+	Ok(())
+}
+```
 
-### Command example:  post_message
+If we keep follow the call stack you will eventually find more interesting detail but we have to stop here, otherwise, this article would be very very long.
+
+The remaining logic would be described like the following:
+- Check the layer one, find currently active state machine replicas, and their p2p addresses
+- Randomly select 2 (or more if you think necessory) [[State Machine Replica]]s. Send the txn in P2P message to them.
+- After the first txn P2P message sent out. Record the time from the GPS atomic clock. 
+- Use this time stamp in the [[Followup]] message in Ts field. Note, we only need the first txn sent out time, ignore the  2nd txn sent out time.
+- Send out the [[Followup]] message to those two [[State Machine Replica]] too.  Function `pub fn send_followup_via_p2p(fu: Followup, uuid: String)`
+
+## Query example: query_balance
+This function check user balance they topup to Tea Party app account. `"query_balance" => api::query_balance(&serde_json::from_slice(&req.payload)?),`
+
+You can find the main function here in user.rs
+```
+pub fn query_balance(req: &HttpQueryBalanceRequest) -> anyhow::Result<Vec<u8>> {
+	check_auth(&req.tapp_id, &req.address, &req.auth_b64)?;
+
+	info!("begin to query tea balance");
+
+	let auth_key = base64::decode(&req.auth_b64)?;
+	let uuid = &req.uuid;
+	let req = tappstore::TappQueryRequest {
+		msg: Some(tappstore::tapp_query_request::Msg::TeaBalanceRequest(
+			tappstore::TeaBalanceRequest {
+				account: req.address.to_string(),
+				token_id: req.tapp_id,
+				auth_key,
+			},
+		)),
+	};
+
+	send_query(
+		encode_protobuf(req)?,
+		uuid,
+		tea_codec::ACTOR_PUBKEY_TAPPSTORE.into(),
+	)?;
+
+	Ok(b"ok".to_vec())
+}
+```
+Finally the function call to send the P2P message is here inside p2p_send.rs
+```
+pub fn p2p_send_query(
+	query_bytes: Vec<u8>,
+	uuid: &str,
+	to_actor_name: String,
+) -> anyhow::Result<()> {
+	let serial = QuerySerial {
+		actor_name: to_actor_name.clone(),
+		bytes: query_bytes,
+	};
+	let payload = encode_protobuf(tokenstate::StateReceiverMessage {
+		uuid: uuid.to_string(),
+		msg: Some(tokenstate::state_receiver_message::Msg::StateQuery(
+			tokenstate::StateQuery {
+				data: bincode::serialize(&serial)?,
+				target: to_actor_name,
+			},
+		)),
+	})?;
+	info!("query payload => {:?}", payload);
+
+	p2p_send_to_receive_actor(payload)?;
+
+	Ok(())
+}
+```
+You can find how finally the [[hosting CML]] find the [[State Machine Replica]] nodes and send out here in p2p_send_to_receive_actor function.
+```
+fn p2p_send_to_receive_actor(msg: Vec<u8>) -> anyhow::Result<()> {
+	let a_nodes = get_all_active_a_nodes()?;
+
+	info!("all A nodes => {:?}", a_nodes);
+
+	let mut len: usize = a_nodes.len();
+	if a_nodes.len() < 1 {
+		return Err(anyhow::anyhow!("{}", "No active A nodes."));
+	} else if a_nodes.len() == 1 {
+		warn!("Only 1 node to send, not safe.");
+	} else if a_nodes.len() >= AT_LEAST_A_NODES_TO_SEND {
+		info!(
+			"Enough node to send. global => {}, require => {}",
+			a_nodes.len(),
+			AT_LEAST_A_NODES_TO_SEND
+		);
+		len = AT_LEAST_A_NODES_TO_SEND;
+	}
+
+	for node in &a_nodes[..len] {
+		let target_conn_id = conn_id_by_tea_id(node.clone())?;
+		info!("target conn id => {:?}", target_conn_id);
+
+		let target_key = tea_codec::ACTOR_PUBKEY_STATE_RECEIVER.to_string();
+		let target_type = libp2p::TargetType::Actor as i32;
+
+		info!("p2p send msg start...");
+		actor_libp2p::send_message(
+			target_conn_id,
+			libp2p::RuntimeAddress {
+				target_key,
+				target_type,
+				target_action: "libp2p.state-receiver".to_string(),
+			},
+			None,
+			msg.clone(),
+		)?;
+	}
+
+	info!("p2p send msg finish...");
+
+	Ok(())
+}
+```
+The `a_nodes` is the internal name for [[State Machine Replica]].  `target_conn_id` is the address that libp2p can find the destination nodes. 
+
+## Query response after request
+You may be noted that no matter [[Commands]] or [[queries]], the caller will not get the response immediately. Even for [[Queries]] that supposed no to wait in the [[Conveyor]]. That is because all communication between nodes are asyncrhonized. However, you can always query the result using the `uuid` when you generate the request.
+
+The front end can use http `query_result` to get the result.
+```
+
+		"query_result" => {
+			let req: HttpQueryResultWithUuid = serde_json::from_slice(&req.payload)?;
+			let res_val = api::query_result(&req)?;
+			Ok(serde_json::to_vec(&res_val)?)
+		}
+
+```
+
+Please be noted, front end has no way to know when the result would be ready. It is common that the front end need to query several times to get the result. You can find the sample of how to query result in the [[front end]] code `bbs.js`, the function is `const sync_request = async (method, param, message_cb, sp_method='query_result', sp_uuid=null)`.
+
