@@ -1,15 +1,15 @@
-In TEA Party, the messages are stored in [OrbitDb](orbitdb.org).
-OrbitDB is a non-relational database on top of IPFS.
+In the TEA Party, the messages are stored in an [OrbitDb](orbitdb.org) database.
+OrbitDB is a non-relational database running on top of IPFS.
 
 # Security
-For those public messages, there is no need to encrypt.
-They are stored in Orbit DB (eventually in IPFS ) in plain text.
+For TEA Party's public messages, there's no need to encrypt.
+They're stored in OrbitDB (and eventually in IPFS ) in plain text.
 
-But for those private messages, no plain text is saved. The hosting nodes will encrypt the message using the [[App AES Key]], then save the cypher to the OrbitDB. 
+But private messages aren't saved in plain text. The hosting nodes will encrypt the message using the [[App AES Key]] and then save the cypher to OrbitDB. 
 
-Because only TEA Party hosting nodes have such [[App AES Key]] in their own enclave, other apps or users cannot get the content of these messages.
+Because only TEA Party hosting nodes have the [[App AES Key]] in their own enclave, other apps or users cannot get the content of these messages.
 
 ## Cost
-Orbit/IPFS is very cheap comparing the [[State Machine]], since the state is stored in RAM only.
+Orbit/IPFS is very cheap compared to using the [[State Machine]] which uses only RAM to store the state.
 
 
