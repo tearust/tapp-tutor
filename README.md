@@ -53,9 +53,17 @@ The basic workflow would be this:
 |  Create or update dynamic content, such as post new messages or extend existing messages | Send command to modify state | Send transaction to any ETH miner and wait for a new block |The same as above | [[Front end]] sends command to the [[back end actor]]. [[Back end actor]] generates a transaction (or calls a command) and sends it to a [[State Machine Replica]] via P2P. The statemachine replica puts this transaction into the [[conveyor]] and then waits a grace period until the sequence of transactions reaches a consensus between more than 50% of replicas. Then load this transaction to the [[Back end actor]] to execute the transaction which will update the state | There are many state machine replicas that keep a consistent state among them. So the Proof of Time is required to sync between replicas. |
 
 
+## [[3-tiers-architect]] basic workflow
 
-# Requirements of building TApps
-In this section, we'll list the knowledge and tools you'll need to build TApps.
+The above 3 components are directly mapped to the traditional 3 tier architect in the cloud computing applicaiton.
+
+The basic workflow would be this: (let's use web tapp for example)
+- The user traffic user action in front end. Javascript web client catch the user action, generate a web request sending to the backend
+- Backend receives the web request, running the Tea Party back end code (we call it backend actor) to handle anything that do not need state machine(traditional we call it database). But when it will need to query or update a state in the state machine, it will need to genreate a request to the state machine tier. Those are query (do not change state) and Command (potentially change the state)
+- The query and command is handled by the state machines replications. For querys, it will look up local state and send result back. For command, as one of the replications, it should not modify on their own, Instead, it generate a txn and put it in a global queue, we call the queue the [[conveyor]]. The replicas run a Proof of Time consensus to garantee that all state machine in all replicas get the same order of txns, so that their state can always keep identity after execute the command. This is the same as a typical distributed database system.
+
+# The requiements of building TApps
+In this section, we will list the knowledge and tools you will need to build TApps.
 
 ## Tools
 To build and run the demo locally, you will need:
