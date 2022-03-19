@@ -17,7 +17,7 @@ The hosting CML node receives user interaction, generates a hash of the transact
 
 ![1](https://user-images.githubusercontent.com/86096370/159111310-7184f1f5-462b-47d4-af83-dd6978a51528.png)
 
-![2](https://user-images.githubusercontent.com/86096370/159111314-9e8162a6-c194-4fae-b725-c2b68da55a81.png)
+![2](https://user-images.githubusercontent.com/86096370/159133553-2742a99b-6823-402a-869c-19b2229192f3.png)
 
 [[conveyor mutable immutable]]
 
