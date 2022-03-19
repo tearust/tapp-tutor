@@ -15,23 +15,23 @@ The hosting CML node receives user interaction, generates a hash of the transact
 - the timestamp of the previously sent transaction.
 - if this is not the first followup message (i.e. the transaction reported to other replicas' conveyor belts has already issued their followup messages), then the followup message will also record the existing timestamps as recorded in the other replicas' followup messages.
 
-![1](https://user-images.githubusercontent.com/86096370/159111310-7184f1f5-462b-47d4-af83-dd6978a51528.png)
+![1](https://user-images.githubusercontent.com/86096370/159138351-9230a110-1ff3-483a-9457-7581b36706e8.png)
 
-![2](https://user-images.githubusercontent.com/86096370/159133553-2742a99b-6823-402a-869c-19b2229192f3.png)
+![2](https://user-images.githubusercontent.com/86096370/159138355-4f6d7c6d-e037-4046-8a87-fc4a85a0e11d.png)
 
-[[conveyor mutable immutable]]
+![[conveyor mutable immutable]]
 
 ## Sending the updated state back to the apps
 The successfully confirmed transactions have updated the current state of the app. These state changes must now be sent back to the app from where they first came. The final workflow where the state changes are reflected back in the actual app look like this:
 
-1. After the immutable section of replicas' conveyor belts has reached a consensus, an executable actor sends the transactions to the state machine actor in the replica.
+1. After the immutable section of the replicas' conveyors has reached a consensus, an executable actor sends the transactions to the state machine actor in the replica.
 2. The state machine actor deals with the possibility of failed transactions:
 
 - If it's successful, then modify / update the app state.
 - If the transaction is unsuccessful, then issue an error message and don't modify the state.
 
-3. The result of the previous process, either an updated state or an error message, is then sent back to the original application.
-4. The application updates its UI to reflect the updated state for transactions that successfully updated the state, and it shows the error message for unsuccessful transactions.
+3. A notification on the result of the previous process, either a **success** message or an **error** message, is then sent back to the original application.
+4. If the application wants to update its UI to reflect the updated state for transactions that successfully updated the state, then the app must use issue [[queries]] to get the updated state.
 
-![4](https://user-images.githubusercontent.com/86096370/159111316-4c175a29-082c-4de4-bd5f-958bf30face1.png)
+![4](https://user-images.githubusercontent.com/86096370/159138361-4a7a5769-5d62-4602-9216-4453b27a39ae.png)
 
