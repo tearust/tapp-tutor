@@ -53,7 +53,7 @@ The basic workflow would be this:
 |  Create or update dynamic content, such as post new messages or extend existing messages | Send command to modify state | Send transaction to any ETH miner and wait for a new block |The same as above | [[Front end]] sends command to the [[back end actor]]. [[Back end actor]] generates a transaction (or calls a command) and sends it to a [[State Machine Replica]] via P2P. The statemachine replica puts this transaction into the [[conveyor]] and then waits a grace period until the sequence of transactions reaches a consensus between more than 50% of replicas. Then load this transaction to the [[Back end actor]] to execute the transaction which will update the state | There are many state machine replicas that keep a consistent state among them. So the Proof of Time is required to sync between replicas. |
 
 
-## [[3-tiers-architect]] basic workflow
+## [[3-tier-architecture]] basic workflow
 
 The above 3 components are directly mapped to the traditional 3 tier architect in the cloud computing applicaiton.
 
