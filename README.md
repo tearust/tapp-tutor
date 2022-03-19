@@ -43,7 +43,17 @@ The basic workflow would be this:
 - The user generates a user action in the front-end. The Javascript web client catches the user action, generates a web request, and sends it to the backend.
 - The back-end receives the web request and runs the Tea Party back-end code (we call it the back-end actor) to handle anything that does not need the state machine (traditionally, this is referred to as a database). But when it needs to query or update a state in the state machine, it will need to genreate a request to the state machine tier. These can be broken down into [[queries]] (will not change the state) and [[commands]] (potentially could change the state).
 - The queries and commands are handled by the state machine replications. For queries, it will look up the local state and send the result back. For commands, as one of the replications, it should not modify on its own. Instead, it generates a txn and puts it in a global queue that we call the [[conveyor]]. The replicas run a Proof of Time consensus to guarantee that all state machines in all replicas get the same order of txns. This ensures that their state can always be kept identical after executing the command. This is the same methodology as is typically used by a distributed database system.
-- 
+
+# Comparison with cloud webapp 3-tier architect
+| User action | step  | Eth based dApps |cloud webapp | TEA project |  Note |
+|-------------|-------| ------|---------------|-------------|-------|
+| Click the app to start | Start a web app | N/A | Go to a domain name, usually https://yourapp.com | Click the app name in your TEA wallet, you will receive a list of hosting CMLs, click any of them | Cloud webapp has a centralized http/https domain name, but TEA doesn't have such a centralized control. Every miner hosting is seperated |
+| Show the UI in browser | Load front end code to browser | N/A | Download the front end code (js/html/css) from a webserver | Download the front end from IPFS or any decentralized storage | TEA doesn't have a traditional web server. The front end code and all static resources are stored in IPFS or other decentralized storage. User use the CID (hash) as a key to load the fornt end code to browser |
+| Show dyanmic content, such as List of all messages | Query database | Any client to query block state | Browser send request to backend server, back end server then query database for data. Send data all the way back to browser to show on the UI | Browser request to hosting CML. The backend-actor handle the request then send P2P request to Statemachine replica. Statemachine-actor query the state machine then send the data all the way back to front end | Depends on what type of content the UI query. Some content can be directly query from hosting CML local OrbitDB. Accounting information needs go to state machine. TEA project also provide a Glue SQL if the data is stored in SQL database. |
+|  Create or update dynamic content, such as post new message or extend existing message | Send command to modify state | Send transaction to any Eth miner and wait for new block |The same as above | Front end send command to backend actor. Backend actor generate a transaction (or call command) send to StateMachine Replica via P2P. Statemachine replica put this transaction into conveyor then wait a grace period until the sequence of transaction reach consensus between more than 50% replcas. Then load this transaction to Backend-actor to execute the transaction to update state | There are many state machine replicas that keep a consistent state among them. So the Proof of Time is required to sync between replicas. |
+
+
+
 # Requirements of building TApps
 In this section, we'll list the knowledge and tools you'll need to build TApps.
 
