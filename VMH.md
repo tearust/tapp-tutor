@@ -6,3 +6,15 @@ According to the enclave security rule, all information that should be kept secr
 
 When sending message via the VMH, a destination component name is specified so that the corresponding component will receive the messages while other components won't.
 
+```mermaid
+sequenceDiagram
+    participant dotcom
+    participant iframe
+    participant viewscreen
+    dotcom->>iframe: loads html w/ iframe url
+    iframe->>viewscreen: request template
+    viewscreen->>iframe: html & javascript
+    iframe->>dotcom: iframe ready
+    dotcom->>iframe: set mermaid data on iframe
+    iframe->>iframe: render mermaid
+```
