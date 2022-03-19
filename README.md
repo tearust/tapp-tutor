@@ -38,7 +38,7 @@ This WebAssembly code is running inside the state machine's [[mini-runtime]]. It
 The above 3 components are directly mapped to the traditional 3-tier architecture in the cloud computing application.
 
 The basic workflow would be this: 
-(let's use a web-based TApp for the example)
+(this example uses a web-based TApp)
 
 - The user generates a user action in the front-end. The Javascript web client catches the user action, generates a web request, and sends it to the backend.
 - The back-end receives the web request and runs the Tea Party back-end code (we call it the back-end actor) to handle anything that does not need the state machine (traditionally, this is referred to as a database). But when it needs to query or update a state in the state machine, it will need to genreate a request to the state machine tier. These can be broken down into [[queries]] (will not change the state) and [[commands]] (potentially could change the state).
@@ -47,10 +47,10 @@ The basic workflow would be this:
 # Comparison with cloud webapp 3-tier architect
 | User action | step  | Eth based dApps |cloud webapp | TEA project |  Note |
 |-------------|-------| ------|---------------|-------------|-------|
-| Click the app to start | Start a web app | N/A | Go to a domain name, usually https://yourapp.com | Click the app name in your TEA wallet, you will receive a list of hosting CMLs, click any of them | Cloud webapp has a centralized http/https domain name, but TEA doesn't have such a centralized control. Every miner hosting is seperated |
-| Show the UI in browser | Load front end code to browser | N/A | Download the [[front end]] code (js/html/css) from a webserver | Download the front end from IPFS or any decentralized storage | TEA doesn't have a traditional web server. The front end code and all static resources are stored in IPFS or other decentralized storage. User use the CID (hash) as a key to load the fornt end code to browser |
-| Show dyanmic content, such as List of all messages | Query database | Any client to query block state | Browser send request to back end server, back end server then query database for data. Send data all the way back to browser to show on the UI | Browser request to hosting CML. The [[back end actor]] handle the request then send P2P request to [[State machine replica]]. [[State machine actor]] query the [[state machine]] then send the data all the way back to [[front end]] | Depends on what type of content the UI query. Some content can be directly query from hosting CML local OrbitDB. Accounting information needs go to state machine. TEA project also provide a Glue SQL if the data is stored in SQL database. |
-|  Create or update dynamic content, such as post new message or extend existing message | Send command to modify state | Send transaction to any Eth miner and wait for new block |The same as above | [[Front end]] send command to [[back end actor]]. [[Back end actor]] generate a transaction (or call command) send to [[State Machine Replica]] via P2P. Statemachine replica put this transaction into [[conveyor]] then wait a grace period until the sequence of transaction reach consensus between more than 50% replcas. Then load this transaction to [[Back end actor]] to execute the transaction to update state | There are many state machine replicas that keep a consistent state among them. So the Proof of Time is required to sync between replicas. |
+| Click the app to start | Start a web app | N/A | Go to a domain name, usually https://yourapp.com | Click the app name in your TEA wallet, you'll receive a list of hosting CMLs. Click any of them | Cloud webapp has a centralized http/https domain name, but TEA doesn't have such a centralized control. Every hosting miner are seperate from each other |
+| Show the UI in the browser | Load front-end code in the browser | N/A | Download the [[front end]] code (js/html/css) from a webserver | Download the front end from IPFS or any decentralized storage | TEA doesn't have a traditional web server. The front-end code and all static resources are stored in IPFS or some other decentralized storage. User will use the CID (hash) as a key to load the front-end code directly in the browser |
+| Show dynamic content, such as List of all messages | Query database | Any client to query the block state | Browser sends request to the back-end server, back-end server then queries database for data. Send data all the way back to the browser to show on the UI | Browser request to hosting CML. The [[back end actor]] handles the request and then sends a P2P request to [[State machine replica]]. [[State machine actor]] queries the [[state machine]] then sends the data all the way back to the [[front end]] | Depends on what type of content the UI queries. Some content can be directly queried from a hosting CML's local OrbitDB. Accounting information needs go to the state machine. The TEA project also provides a Glue SQL database if the data is stored in an SQL database. |
+|  Create or update dynamic content, such as post new messages or extend existing messages | Send command to modify state | Send transaction to any ETH miner and wait for a new block |The same as above | [[Front end]] sends command to the [[back end actor]]. [[Back end actor]] generates a transaction (or calls a command) and sends it to a [[State Machine Replica]] via P2P. The statemachine replica puts this transaction into the [[conveyor]] and then waits a grace period until the sequence of transactions reaches a consensus between more than 50% of replicas. Then load this transaction to the [[Back end actor]] to execute the transaction which will update the state | There are many state machine replicas that keep a consistent state among them. So the Proof of Time is required to sync between replicas. |
 
 
 
@@ -63,7 +63,7 @@ To build and run the demo locally, you will need:
 - a Linux or Mac. 
 - Docker and docker-compose installed.
 - Rust compiler.
-- Web browser
+- Web browser.
 
 If you want too build your own TApp and try to host your own app in your own mining node. you will also need a mining node. A mining node is any type of TEA node with CML planted in it. If you don't own a physical TEA machine, you can rent an Amazon Nitro VM which is TEA-compatible.
 
@@ -102,15 +102,16 @@ The steps are:
 - Understand the folder structure.
 - Understand the compile workflow.
 - Run it.
+- 
 ## Code location and structure
 https://github.com/tearust/tapp-sample-teaparty
-Please clone the above github repo to your location repo.
+Please clone the above github repo to your local machine.
 
 There are 4 folders
-- party-actor: This is the [[back end actor]]
-- party-fe: This is the [[Front end]]
-- party-share: This is the common data structure or library that shared by both [[back end  actor]] and [[state machine actor]]
-- party-state-actor: This is the [[statemachine-actor]]
+- party-actor: This is the [[back end actor]].
+- party-fe: This is the [[Front end]].
+- party-share: This is the common data structure or library that shared by both [[back end  actor]] and [[state machine actor]].
+- party-state-actor: This is the [[statemachine-actor]].
 
 Please click the above link for more detail.
 
