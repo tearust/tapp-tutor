@@ -1,0 +1,2 @@
+This is usually called web server in the traditional cloud computing world. In TEA Project, since it is fully decentralized, there is no such a web server. Instead, any miner can plant a hosting CML into a miner machine. so that this machine can host TApps' backend actors.
+This machine is usually called hosting CML, or host, or (in an old manner, a B CML).

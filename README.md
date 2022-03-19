@@ -48,9 +48,9 @@ The basic workflow would be this:
 | User action | step  | Eth based dApps |cloud webapp | TEA project |  Note |
 |-------------|-------| ------|---------------|-------------|-------|
 | Click the app to start | Start a web app | N/A | Go to a domain name, usually https://yourapp.com | Click the app name in your TEA wallet, you will receive a list of hosting CMLs, click any of them | Cloud webapp has a centralized http/https domain name, but TEA doesn't have such a centralized control. Every miner hosting is seperated |
-| Show the UI in browser | Load front end code to browser | N/A | Download the front end code (js/html/css) from a webserver | Download the front end from IPFS or any decentralized storage | TEA doesn't have a traditional web server. The front end code and all static resources are stored in IPFS or other decentralized storage. User use the CID (hash) as a key to load the fornt end code to browser |
-| Show dyanmic content, such as List of all messages | Query database | Any client to query block state | Browser send request to backend server, back end server then query database for data. Send data all the way back to browser to show on the UI | Browser request to hosting CML. The backend-actor handle the request then send P2P request to Statemachine replica. Statemachine-actor query the state machine then send the data all the way back to front end | Depends on what type of content the UI query. Some content can be directly query from hosting CML local OrbitDB. Accounting information needs go to state machine. TEA project also provide a Glue SQL if the data is stored in SQL database. |
-|  Create or update dynamic content, such as post new message or extend existing message | Send command to modify state | Send transaction to any Eth miner and wait for new block |The same as above | Front end send command to backend actor. Backend actor generate a transaction (or call command) send to StateMachine Replica via P2P. Statemachine replica put this transaction into conveyor then wait a grace period until the sequence of transaction reach consensus between more than 50% replcas. Then load this transaction to Backend-actor to execute the transaction to update state | There are many state machine replicas that keep a consistent state among them. So the Proof of Time is required to sync between replicas. |
+| Show the UI in browser | Load front end code to browser | N/A | Download the [[front end]] code (js/html/css) from a webserver | Download the front end from IPFS or any decentralized storage | TEA doesn't have a traditional web server. The front end code and all static resources are stored in IPFS or other decentralized storage. User use the CID (hash) as a key to load the fornt end code to browser |
+| Show dyanmic content, such as List of all messages | Query database | Any client to query block state | Browser send request to back end server, back end server then query database for data. Send data all the way back to browser to show on the UI | Browser request to hosting CML. The [[back end actor]] handle the request then send P2P request to [[State machine replica]]. [[State machine actor]] query the [[state machine]] then send the data all the way back to [[front end]] | Depends on what type of content the UI query. Some content can be directly query from hosting CML local OrbitDB. Accounting information needs go to state machine. TEA project also provide a Glue SQL if the data is stored in SQL database. |
+|  Create or update dynamic content, such as post new message or extend existing message | Send command to modify state | Send transaction to any Eth miner and wait for new block |The same as above | [[Front end]] send command to [[back end actor]]. [[Back end actor]] generate a transaction (or call command) send to [[State Machine Replica]] via P2P. Statemachine replica put this transaction into [[conveyor]] then wait a grace period until the sequence of transaction reach consensus between more than 50% replcas. Then load this transaction to [[Back end actor]] to execute the transaction to update state | There are many state machine replicas that keep a consistent state among them. So the Proof of Time is required to sync between replicas. |
 
 
 
@@ -102,6 +102,17 @@ The steps are:
 - Understand the folder structure.
 - Understand the compile workflow.
 - Run it.
+## Code location and structure
+https://github.com/tearust/tapp-sample-teaparty
+Please clone the above github repo to your location repo.
+
+There are 4 folders
+- party-actor: This is the [[back end actor]]
+- party-fe: This is the [[Front end]]
+- party-share: This is the common data structure or library that shared by both [[back end  actor]] and [[state machine actor]]
+- party-state-actor: This is the [[statemachine-actor]]
+
+Please click the above link for more detail.
 
 # Basic workflow
 In this section, we'll learn the basic workflow between all three tiers. How a user action get processed from the front-end to the state machine layer and back to the user.
