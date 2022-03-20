@@ -1,5 +1,5 @@
 [[State_Machine]] is the database tier that contains multiple replications. Every replication is a **State Machine Replica**.
 
-Every replica is a standlone state machine CML node. It sync with other state machine CML nodes. 
+Every replica is a standalone state machine CML node. It syncs with the other state machine CML nodes. 
 
-Our [[Proof_of_Time]] algorithm to guarantee that all state machine replicas run all transacctions (or called commands ) at the same sequence, therefore, the state will be kept the same along all replicas.
+Our [[Proof_of_Time]] algorithm guarantees that all state machine replicas run all transactions (or any called commands) at the same sequence. As a result, the same state will be kept among all replicas.
