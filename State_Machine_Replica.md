@@ -2,4 +2,4 @@
 
 Every replica is a standlone state machine CML node. It sync with other state machine CML nodes. 
 
-Our [[Proof of Time]] algorithm to guarantee that all state machine replicas run all transacctions (or called commands ) at the same sequence, therefore, the state will be kept the same along all replicas.
+Our [[Proof_of_Time]] algorithm to guarantee that all state machine replicas run all transacctions (or called commands ) at the same sequence, therefore, the state will be kept the same along all replicas.

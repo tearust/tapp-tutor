@@ -8,7 +8,7 @@ We built TEA Party to show:
 
 - How to use Tea Party as a boilerplate to build your own TApps.
 
-The TEA Party TApp is a useful social media application. Users can post messages to a public board as well as send private messages with notifications. See [[how_to_use_TEA Party]]
+The TEA Party TApp is a useful social media application. Users can post messages to a public board as well as send private messages with notifications. See [[how_to_use_TEA_Party]]
 
 
 # TApp is designed for Web 3.0
@@ -20,7 +20,7 @@ As is the case with all TApps, TEA Party showcases the special features that are
 
 - There's no free lunch. Every action that costs any computing resources needs to be paid by someone. In TEA Party's particular case, every message sent need to be paid for. Additional charges also apply to store the message or to notify the recipient.  Further link [[Where_the_message_is_stored?]]
 
-In order to get the features above, the underlying technical layer is very different from the existing cloud computing and blockchain tech stacks. It's a new tech stack that's based on recent technologies.  However, the developers do not need to understand the complicated low level distributed system, they can build application **as if** it is still a centralized cloud computing architecture. This is the charm of Tea Project.
+In order to get the features above, the underlying technical layer is very different from the existing cloud computing and blockchain tech stacks. It's a new tech stack that's based on recent technologies.  However, the developers do not need to understand the complicated low level distributed system, they can build application **as if** it is still a centralized cloud computing architecture. This is the **charm of Tea Project**.
 
 The following sections will explain the cutting edge technologies used in the TEA Party. We hope by explaining the underlying technologies and how they work together will help you make your own TEA applications (TApps).
 
@@ -44,13 +44,13 @@ The basic workflow would be this:
 
 - The user generates a user action in the front-end. The Javascript web client catches the user action, generates a web request, and sends it to the backend.
 - The back-end receives the web request and runs the Tea Party back-end code (we call it the back-end actor) to handle anything that does not need the state machine (traditionally, this is referred to as a database). But when it needs to query or update a state in the state machine, it will need to genreate a request to the state machine tier. These can be broken down into [[queries]] (will not change the state) and [[commands]] (potentially could change the state). Command is usually called [[txn]] in blockchain industry. 
-- The queries and commands are handled by the state machine replications. For queries, it will look up the local state and send the result back. For commands, as one of the replications, it should not modify on its own. Instead, it generates a txn and puts it in a global queue that we call the [[conveyor]]. The replicas run a Proof of Time consensus to guarantee that all state machines in all replicas get the same order of txns. This ensures that their state can always be kept identical after executing the command. This is the same methodology as is typically used by a distributed database system.
+- The queries and commands are handled by the state machine replications. For queries, it will look up the local state and send the result back. For commands, as one of the replications, it should not modify on its own. Instead, it generates a txn and puts it in a global queue that we call the [[conveyor]]. The replicas run a Proof of Time consensus to guarantee that all state machines in all replicas get the same [[order_of_txns]]. This ensures that their state can always be kept identical after executing the command. This is the same methodology as is typically used by a distributed database system.
 
 # Storage
 There are three types of storage options for different use cases.
-- OrbitDb: Use to large blob storage based on IPFS. It is running on [[hosting_CML]]
-- State: Usually used to store account balance. It is inside [[State_Machine]]
-- GlueSQL: A distributed SQL server instances. It is inside [[State_Machine]]
+- [[OrbitDb]]: Use to large blob storage based on IPFS. It is running on [[hosting_CML]]
+- [[state|State]]: Usually used to store account balance. It is inside [[State_Machine]]
+- [[GlueSQL]]: A distributed SQL server instances. It is inside [[State_Machine]]
 
 Comparison between three storage options
 
@@ -75,7 +75,7 @@ The above 3 components are directly mapped to the traditional 3 tier architect i
 
 The basic workflow would be this: (let's use web tapp for example)
 - The user traffic user action in front end. Javascript web client catch the user action, generate a web request sending to the backend
-- Backend receives the web request, running the Tea Party back end code (we call it backend actor) to handle anything that do not need state machine(traditional we call it database). But when it will need to query or update a state in the state machine, it will need to genreate a request to the state machine tier. Those are query (do not change state) and Command (potentially change the state)
+- Backend receives the web request, running the Tea Party back end code (we call it backend actor) to handle anything that do not need state machine(traditional we call it database). But when it will need to query or update a [[state]] in the [[state machine]], it will need to genreate a request to the state machine tier. Those are [[queries]] (do not change [[state]]) and [[Commands]] (potentially change the [[state]])
 - The query and command is handled by the state machines replications. For querys, it will look up local state and send result back. For command, as one of the replications, it should not modify on their own, Instead, it generate a txn and put it in a global queue, we call the queue the [[conveyor]]. The replicas run a Proof of Time consensus to garantee that all state machine in all replicas get the same order of txns, so that their state can always keep identity after execute the command. This is the same as a typical distributed database system.
 
 # The requiements of building TApps
