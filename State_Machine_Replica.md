@@ -1,4 +1,4 @@
-[[State Machine]] is the database tier that contains multiple replications. Every replication is a **State Machine Replica**.
+[[State_Machine]] is the database tier that contains multiple replications. Every replication is a **State Machine Replica**.
 
 Every replica is a standlone state machine CML node. It sync with other state machine CML nodes. 
 

@@ -8,15 +8,15 @@ We built TEA Party to show:
 
 - How to use Tea Party as a boilerplate to build your own TApps.
 
-The TEA Party TApp is a useful social media application. Users can post messages to a public board as well as send private messages with notifications. See [[how to use TEA Party]]
+The TEA Party TApp is a useful social media application. Users can post messages to a public board as well as send private messages with notifications. See [[how_to_use_TEA Party]]
 
-As is the case with all TApps, TEA Party showcases the special features that are beyond the capabilities of other cloud based internet (web 2.0) applications. Instead of centralized server(s) hosting the app, the individual miners of the TEA network host TApps based solely on their own [[hosting profitability]]. The inherent decentralization that all TApps including the TEA Party share gives these apps even more unique features:
+As is the case with all TApps, TEA Party showcases the special features that are beyond the capabilities of other cloud based internet (web 2.0) applications. Instead of centralized server(s) hosting the app, the individual miners of the TEA network host TApps based solely on their own [[hosting_profitability]]. The inherent decentralization that all TApps including the TEA Party share gives these apps even more unique features:
 
 - They cannot be turned off by any centralized power. As long as there are a minimal number of miners hosting any particular application, it will continue to run forever.
 
 - No one, including the host miner, can control or censor the content. The content is owned and protected by its creator's private key. A miner can choose to stop hosting the TApp, but it cannot selectively choose what content to show or hide.
 
-- There's no free lunch. Every action that costs any computing resources needs to be paid by someone. In TEA Party's particular case, every message sent need to be paid for. Additional charges also apply to store the message or to notify the recipient.  Further link [[Where the message is stored?]]
+- There's no free lunch. Every action that costs any computing resources needs to be paid by someone. In TEA Party's particular case, every message sent need to be paid for. Additional charges also apply to store the message or to notify the recipient.  Further link [[Wher_the_message_is_stored?]]
 
 In order to get the features above, the underlying technical layer is very different from the existing cloud computing and blockchain tech stacks. It's a new tech stack that's based on recent technologies. 
 
@@ -25,7 +25,7 @@ The following sections will explain the cutting edge technologies used in the TE
 # Three Major Parts
 All TApps have three major parts that run in three different locations.
 
-## [[front end | Front end]]
+## [[front_end | Front end]]
 This is a typical JS application (for webapp), or mobile application (for mobile app). They're running inside of a browser or mobile device.
 
 ## Back-end [[actor]]
@@ -34,7 +34,7 @@ This WebAssembly code is running inside of a hosting node. The hosting node is a
 ## State machine [[actor]]
 This WebAssembly code is running inside the state machine's [[mini-runtime]]. It's equivalent to the stored procedure (SQL for example code) in the traditional 3-tier architecture's database.
 
-# [[3-tier-architecture]] basic workflow
+# [[3_tier_architecture]] basic workflow
 The above 3 components are directly mapped to the traditional 3-tier architecture in the cloud computing application.
 
 The basic workflow would be this: 
@@ -46,9 +46,9 @@ The basic workflow would be this:
 
 # Storage
 There are three types of storage options for different use cases.
-- OrbitDb: Use to large blob storage based on IPFS. It is running on [[Hosting CML]]
-- State: Usually used to store account balance. It is inside [[State Machine]]
-- GlueSQL: A distributed SQL server instances. It is inside [[State Machine]]
+- OrbitDb: Use to large blob storage based on IPFS. It is running on [[hosting_CML]]
+- State: Usually used to store account balance. It is inside [[State_Machine]]
+- GlueSQL: A distributed SQL server instances. It is inside [[State_Machine]]
 
 Comparison between three storage options
 
@@ -62,12 +62,12 @@ Comparison between three storage options
 | User action | step  | Eth based dApps |cloud webapp | TEA project |  Note |
 |-------------|-------| ------|---------------|-------------|-------|
 | Click the app to start | Start a web app | N/A | Go to a domain name, usually https://yourapp.com | Click the app name in your TEA wallet, you'll receive a list of hosting CMLs. Click any of them | Cloud webapp has a centralized http/https domain name, but TEA doesn't have such a centralized control. Every hosting miner are seperate from each other |
-| Show the UI in the browser | Load front-end code in the browser | N/A | Download the [[front end]] code (js/html/css) from a webserver | Download the front end from IPFS or any decentralized storage | TEA doesn't have a traditional web server. The front-end code and all static resources are stored in IPFS or some other decentralized storage. User will use the CID (hash) as a key to load the front-end code directly in the browser |
-| Show dynamic content, such as List of all messages | Query database | Any client to query the block state | Browser sends request to the back-end server, back-end server then queries database for data. Send data all the way back to the browser to show on the UI | Browser request to hosting CML. The [[back end actor]] handles the request and then sends a P2P request to [[State machine replica]]. [[State machine actor]] queries the [[state machine]] then sends the data all the way back to the [[front end]] | Depends on what type of content the UI queries. Some content can be directly queried from a hosting CML's local OrbitDB. Accounting information needs go to the state machine. The TEA project also provides a Glue SQL database if the data is stored in an SQL database. |
-|  Create or update dynamic content, such as post new messages or extend existing messages | Send command to modify state | Send transaction to any ETH miner and wait for a new block |The same as above | [[Front end]] sends command to the [[back end actor]]. [[Back end actor]] generates a transaction (or calls a command) and sends it to a [[State Machine Replica]] via P2P. The statemachine replica puts this transaction into the [[conveyor]] and then waits a grace period until the sequence of transactions reaches a consensus between more than 50% of replicas. Then load this transaction to the [[Back end actor]] to execute the transaction which will update the state | There are many state machine replicas that keep a consistent state among them. So the Proof of Time is required to sync between replicas. |
+| Show the UI in the browser | Load front-end code in the browser | N/A | Download the [[front_end]] code (js/html/css) from a webserver | Download the front end from IPFS or any decentralized storage | TEA doesn't have a traditional web server. The front-end code and all static resources are stored in IPFS or some other decentralized storage. User will use the CID (hash) as a key to load the front-end code directly in the browser |
+| Show dynamic content, such as List of all messages | Query database | Any client to query the block state | Browser sends request to the back-end server, back-end server then queries database for data. Send data all the way back to the browser to show on the UI | Browser request to hosting CML. The [[back_end_actor]] handles the request and then sends a P2P request to [[State_Machine_Replica]]. [[State machine actor]] queries the [[State_Machine]] then sends the data all the way back to the [[front_end]] | Depends on what type of content the UI queries. Some content can be directly queried from a hosting CML's local OrbitDB. Accounting information needs go to the state machine. The TEA project also provides a Glue SQL database if the data is stored in an SQL database. |
+|  Create or update dynamic content, such as post new messages or extend existing messages | Send command to modify state | Send transaction to any ETH miner and wait for a new block |The same as above | [[front_end]] sends command to the [[back_end_actor]]. [[back_end_actor]] generates a transaction (or calls a command) and sends it to a [[State_Machine_Replica]] via P2P. The statemachine replica puts this transaction into the [[conveyor]] and then waits a grace period until the sequence of transactions reaches a consensus between more than 50% of replicas. Then load this transaction to the [[back_end_actor]] to execute the transaction which will update the state | There are many state machine replicas that keep a consistent state among them. So the Proof of Time is required to sync between replicas. |
 
 
-## [[3-tier-architecture]] basic workflow
+## [[3_tier_architecture]] basic workflow
 
 The above 3 components are directly mapped to the traditional 3 tier architect in the cloud computing applicaiton.
 
@@ -130,10 +130,10 @@ https://github.com/tearust/tapp-sample-teaparty
 Please clone the above github repo to your local machine.
 
 There are 4 folders
-- party-actor: This is the [[back end actor]].
-- party-fe: This is the [[Front end]].
+- party-actor: This is the [[back_end_actor]].
+- party-fe: This is the [[front_end]].
 - party-share: This is the common data structure or library that shared by both [[back end  actor]] and [[state machine actor]].
-- party-state-actor: This is the [[statemachine-actor]].
+- party-state-actor: This is the [[state_machine_actor]].
 
 Please click the above link for more detail.
 

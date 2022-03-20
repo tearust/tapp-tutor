@@ -1,4 +1,4 @@
-Adapter is a module in [[hosting CML]]. It lives outside of enclave. Its goal is to accept http call from outside world (eg. browser, other nodes). In our Tea party example, only http adapter messages are handled and pass through to `handle_adapter_http_request`.
+Adapter is a module in [[hosting_CML]]. It lives outside of enclave. Its goal is to accept http call from outside world (eg. browser, other nodes). In our Tea party example, only http adapter messages are handled and pass through to `handle_adapter_http_request`.
 See code sample:
 ```
 fn handle_adapter_request(data: &[u8], section: &str) -> HandlerResult<Vec<u8>> {

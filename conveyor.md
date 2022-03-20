@@ -19,7 +19,7 @@ The hosting CML node receives user interaction, generates a hash of the transact
 
 ![2](https://user-images.githubusercontent.com/86096370/159138355-4f6d7c6d-e037-4046-8a87-fc4a85a0e11d.png)
 
-![[conveyor mutable immutable]]
+![[conveyor_mutable_immutable]]
 
 ## Sending the updated state back to the apps
 The successfully confirmed transactions have updated the current state of the app. These state changes must now be sent back to the app from where they first came. The final workflow where the state changes are reflected back in the actual app look like this:
