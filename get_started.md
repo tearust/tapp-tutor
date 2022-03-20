@@ -69,15 +69,6 @@ Comparison between three storage options
 |  Create or update dynamic content, such as post new messages or extend existing messages | Send command to modify state | Send transaction to any ETH miner and wait for a new block |The same as above | [[front_end]] sends command to the [[back_end_actor]]. [[back_end_actor]] generates a transaction (or calls a command) and sends it to a [[State_Machine_Replica]] via P2P. The statemachine replica puts this transaction into the [[conveyor]] and then waits a grace period until the sequence of transactions reaches a consensus between more than 50% of replicas. Then load this transaction to the [[back_end_actor]] to execute the transaction which will update the state | There are many state machine replicas that keep a consistent state among them. So the Proof of Time is required to sync between replicas. |
 
 
-## [[3_tier_architecture]] basic workflow
-
-The above 3 components are directly mapped to the traditional 3 tier architect in the cloud computing applicaiton.
-
-The basic workflow would be this: (let's use web tapp for example)
-- The user traffic user action in front end. Javascript web client catch the user action, generate a web request sending to the backend
-- Backend receives the web request, running the Tea Party back end code (we call it backend actor) to handle anything that do not need state machine(traditional we call it database). But when it will need to query or update a [[state]] in the [[state machine]], it will need to genreate a request to the state machine tier. Those are [[queries]] (do not change [[state]]) and [[Commands]] (potentially change the [[state]])
-- The query and command is handled by the state machines replications. For querys, it will look up local state and send result back. For command, as one of the replications, it should not modify on their own, Instead, it generate a txn and put it in a global queue, we call the queue the [[conveyor]]. The replicas run a Proof of Time consensus to garantee that all state machine in all replicas get the same order of txns, so that their state can always keep identity after execute the command. This is the same as a typical distributed database system.
-
 # The requiements of building TApps
 In this section, we will list the knowledge and tools you will need to build TApps.
 
@@ -104,12 +95,10 @@ The TEA Project doesn't require the developer to use the Rust programming langua
 ## Hardware
 The TEA Project is very different from many other blockchain projects. TEA relies on two types of hardware in order to reach special consensus: 
 
-- TPM
-- GPS
+- [[TPM]]
+- [[GPS]]
 
-The TPM is a popular security chip that exists in almost every computer and most phones. We rely on each node's TPM to generate Proof of Trust data that can undergo remote attestation by a verifier.
-
-We need GPS but we don't use this for navigation. Our TEA nodes are stationary and not moving on the street. Instead of location, we use the acurate time stamps from GPS satellites. Every GPS satellite has an atomic clock, and it constantly sends time signals to any terrestrial GPS receiver. We use this as the source of the time stamps for all events.
+Please click the above links to know more about why and how we use them.
 
 If you just want to run the code in your local simulator, you don't need such hardware. You can run it using docker and our simulator.
 
@@ -119,26 +108,7 @@ If you want to host your application in the production environment, you will nee
 
 In this section, we'll walk through the TEA Party application's sample code. 
 
-The steps are:
-
-- Clone the code to local.
-- Install the build tools.
-- Understand the folder structure.
-- Understand the compile workflow.
-- Run it.
-
-Please continue reading [[code_walkthrough]]
-## Code location and structure
-https://github.com/tearust/tapp-sample-teaparty
-Please clone the above github repo to your local machine.
-
-There are 4 folders
-- party-actor: This is the [[back_end_actor]].
-- party-fe: This is the [[front_end]].
-- party-share: This is the common data structure or library that shared by both [[back end  actor]] and [[state machine actor]].
-- party-state-actor: This is the [[state_machine_actor]].
-
-Please click the above link for more detail.
+Please continue read [[code_walkthrough]]
 
 # Basic workflow
 In this section, we'll learn the basic workflow between all three tiers. How a user action get processed from the front-end to the state machine layer and back to the user.

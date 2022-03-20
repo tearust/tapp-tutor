@@ -1,0 +1,3 @@
+We need GPS but we don't use this for navigation. Our TEA nodes are stationary and not moving on the street. Instead of location, we use the acurate time stamps from GPS satellites. Every GPS satellite has an atomic clock, and it constantly sends time signals to any terrestrial GPS receiver. We use this as the source of the time stamps for all events.
+
+To learn more about how we use the timestamp, click [[conveyor]] and [[State_Machine]]
