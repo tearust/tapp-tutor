@@ -1,7 +1,6 @@
 sort:    
   - name: Get started
     path: /get_started.md
-    
 
   - name: How to use TEA Party app
     path: /how_to_use_TEA_Party.md
