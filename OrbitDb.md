@@ -5,4 +5,4 @@ In TEA Project, every [[hosting_CML]] has a OrbitDb instance running **outside**
 
 It is used to store large data blob. OrbitDb provides limited non-relational database features but at much lower cost. For relational database, developers can use [[GlueSQL]]. For more essential account balance (money) data, we would suggest to use [[state]] instead.
 
-See [[README#Storage| the storage section]] for more detail comparison.
+See [[get_started#Storage| the storage section]] for more detail comparison.

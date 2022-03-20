@@ -126,7 +126,8 @@ The steps are:
 - Understand the folder structure.
 - Understand the compile workflow.
 - Run it.
-- 
+
+Please continue reading [[code_walkthrough]]
 ## Code location and structure
 https://github.com/tearust/tapp-sample-teaparty
 Please clone the above github repo to your local machine.
@@ -144,6 +145,8 @@ In this section, we'll learn the basic workflow between all three tiers. How a u
 
 # The magical Proof of Time state machine
 In this section, we'll explain how the distributed state machine works, including how it handles consensus among different replicas.
+Keep reading [[magic_of_state_machine]]
 
 # Understand WebAssembly Runtime
 In this section, we'll go through how the WebAssembly code runs inside the [[mini-runtime]]. 
+Keep reading [[magic_of_wasm]]
