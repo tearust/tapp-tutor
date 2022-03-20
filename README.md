@@ -16,7 +16,7 @@ As is the case with all TApps, TEA Party showcases the special features that are
 
 - No one, including the host miner, can control or censor the content. The content is owned and protected by its creator's private key. A miner can choose to stop hosting the TApp, but it cannot selectively choose what content to show or hide.
 
-- There's no free lunch. Every action that costs any computing resources needs to be paid by someone. In TEA Party's particular case, every message sent need to be paid for. Additional charges also apply to store the message or to notify the recipient.  Further link [[Wher_the_message_is_stored?]]
+- There's no free lunch. Every action that costs any computing resources needs to be paid by someone. In TEA Party's particular case, every message sent need to be paid for. Additional charges also apply to store the message or to notify the recipient.  Further link [[Where_the_message_is_stored?]]
 
 In order to get the features above, the underlying technical layer is very different from the existing cloud computing and blockchain tech stacks. It's a new tech stack that's based on recent technologies. 
 
@@ -25,13 +25,13 @@ The following sections will explain the cutting edge technologies used in the TE
 # Three Major Parts
 All TApps have three major parts that run in three different locations.
 
-## [[front_end | Front end]]
+## [[front_end]]
 This is a typical JS application (for webapp), or mobile application (for mobile app). They're running inside of a browser or mobile device.
 
-## Back-end [[actor]]
+## [[back_end_actor]]
 This WebAssembly code is running inside of a hosting node. The hosting node is a miner's computer which has a CML planted. It's similar to the server logic running in backend servers or application servers in the traditional cloud computing architecture.
 
-## State machine [[actor]]
+## [[state_machine_actor]]
 This WebAssembly code is running inside the state machine's [[mini-runtime]]. It's equivalent to the stored procedure (SQL for example code) in the traditional 3-tier architecture's database.
 
 # [[3_tier_architecture]] basic workflow
