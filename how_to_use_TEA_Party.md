@@ -2,4 +2,4 @@ TEA Party user guide (epoch 9, March, 2022): https://teaproject.medium.com/tea-p
 
 
 Youtube video tutorial:
-<iframe width="560" height="315" src="[https://www.youtube.com/embed/yl7DUnyE_0g](https://www.youtube.com/embed/yl7DUnyE_0g)" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/yl7DUnyE_0g" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
