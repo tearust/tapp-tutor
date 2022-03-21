@@ -1,5 +1,6 @@
-Adapter is a module in [[hosting_CML]]. It lives outside of enclave. Its goal is to accept http call from outside world (eg. browser, other nodes). In our Tea party example, only http adapter messages are handled and pass through to `handle_adapter_http_request`.
-See code sample:
+The **adapter** is a module within the [[hosting_CML]] that lives outside the enclave. Its goal is to accept http calls from outside world (eg. browser, other nodes). In our TEA Party example, only http adapter messages are handled and passed through to `handle_adapter_http_request`.
+
+See the following code sample:
 ```
 fn handle_adapter_request(data: &[u8], section: &str) -> HandlerResult<Vec<u8>> {
 	let adapter_server_request = rpc::AdapterServerRequest::decode(data)?;
