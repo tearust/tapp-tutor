@@ -8,20 +8,18 @@ The steps are:
 - Understand the compile workflow.
 - Run it.
 
-Please continue reading [[code_walkthrough]]
 ## Code location and structure
+Please clone the following github repo to your local machine:
 https://github.com/tearust/tapp-sample-teaparty
-Please clone the above github repo to your local machine.
 
-There are 4 folders
+There are 4 folders (click the links for more details):
+
 - [[party-actor]]: This is the [[back_end_actor]].
 - [[party-fe]]: This is the [[front_end]].
-- party-share: This is the common data structure or library that shared by both [[back end  actor]] and [[state machine actor]].
+- party-share: This is the common data structure or library that shared by both the [[back end  actor]] and the [[state machine actor]].
 - [[party-state-actor]]: This is the [[state_machine_actor]].
 
-Please click the above link for more detail.
-
-Code walkthrough for [[party-actor]]. Please click to enter
-Code walkthrough for [[party-fe]]. Please click to enter
-Code walkthrough for [[party-state-actor]]. Please click to enter
-
+Click on any of the following links for more details:
+Code walkthrough for [[party-actor]]. 
+Code walkthrough for [[party-fe]]. 
+Code walkthrough for [[party-state-actor]]. 
