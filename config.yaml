@@ -7,6 +7,9 @@ sort:
 
   - name: Three tier architecture
     path: /3_tier_architecture.md
+    
+  - name: Consensus
+    path: /consensus.md
 
   - name: Code walkthrough
     path: /code_walkthrough.md
