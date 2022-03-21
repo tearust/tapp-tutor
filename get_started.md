@@ -1,6 +1,7 @@
 **TEA Party** is a demo application running on the TEA Project. 
-# The goal of Tea Party
-We built TEA Party to show: 
+
+# The goal of TEA Party
+We built tje TEA Party TApp to show: 
 
 - What a typical TApp looks like.
 
@@ -12,7 +13,7 @@ The TEA Party TApp is a useful social media application. Users can post messages
 
 
 # TApp is designed for Web 3.0
-As is the case with all TApps, TEA Party showcases the special features that are beyond the capabilities of other cloud based internet (web 2.0) applications. Instead of centralized server(s) hosting the app, the individual miners of the TEA network host TApps based solely on their own [[hosting_profitability]]. The inherent decentralization that all TApps including the TEA Party share gives these apps even more unique features:
+As is the case with all TApps, the TEA Party showcases the special features that are beyond the capabilities of other cloud based internet (web 2.0) applications. Instead of centralized server(s) hosting the app, the individual miners of the TEA network host TApps based solely on their own [[hosting_profitability]]. The inherent decentralization that all TApps including the TEA Party share gives these apps even more unique features:
 
 - They cannot be turned off by any centralized power. As long as there are a minimal number of miners hosting any particular application, it will continue to run forever.
 
@@ -25,13 +26,13 @@ In order to get the features above, the underlying technical layer is very diffe
 The following sections will explain the cutting edge technologies used in the TEA Party. We hope by explaining the underlying technologies and how they work together will help you make your own TEA applications (TApps).
 
 # Three Major Parts
-The full architecture of TEA Project is complicated but as an application developer, there are only three majors parts need to be worked on. These three major parts run in three different locations just like a traditional 3-tier-architeture in cloud computing web apps. 
+The full architecture of TEA Project is complicated but there are only three majors parts that an application developer needs to work on. These three major parts run in three different locations just like the traditional 3-tier-architecture of cloud computing web apps. 
 
 ## [[front_end]]
-This is a typical JS application (for webapp), or mobile application (for mobile app). They're running inside of a browser or mobile device.
+This is a typical JS application (for webapp), or mobile application (for mobile app). The front-end is running inside of a browser or mobile device.
 
 ## [[back_end_actor]]
-This WebAssembly code is running inside of a hosting node. The hosting node is a miner's computer which has a CML planted. It's similar to the server logic running in backend servers or application servers in the traditional cloud computing architecture.
+This WebAssembly code is running inside of a hosting node. The hosting node is a miner's computer which has a CML planted. It's similar to the server logic running in back-end servers or application servers in the traditional cloud computing architecture.
 
 ## [[state_machine_actor]]
 This WebAssembly code is running inside the state machine's [[mini-runtime]]. It's equivalent to the stored procedure (SQL for example code) in the traditional 3-tier architecture's database.
@@ -48,15 +49,15 @@ The basic workflow would be this:
 
 # Storage
 There are three types of storage options for different use cases.
-- [[OrbitDb]]: Use to large blob storage based on IPFS. It is running on [[hosting_CML]]
-- [[state|State]]: Usually used to store account balance. It is inside [[State_Machine]]
-- [[GlueSQL]]: A distributed SQL server instances. It is inside [[State_Machine]]
+- [[OrbitDb]]: Based on IPFS / used for large blob storage. It's running on the [[hosting_CML]].
+- [[state|State]]: Usually used to store account balance. It runs inside the [[State_Machine]].
+- [[GlueSQL]]: Distributed SQL server instances. It's located inside the [[State_Machine]].
 
-Comparison between three storage options
+## Comparison between the three storage options
 
 | Storage options | Relational? | Cost | Consistency type | Use cases in Tea party |
 | -----------------|------------|-------|-------------------|--------------------|
-| OrbitDb (on IPFS) | Non-relational | Low | Eventually consistency | Message body & attachements |
+| OrbitDb (on IPFS) | Non-relational | Low | Eventual consistency | Message body & attachments |
 | State | Non-relational | High | Strong consistency | Account balance |
 | GlueSQL | Relational (SQL) | High | Strong consistency | Not yet in use but can be used in common SQL business logic|
 
@@ -70,7 +71,7 @@ Comparison between three storage options
 
 
 # The requiements of building TApps
-In this section, we will list the knowledge and tools you will need to build TApps.
+In this section, we'll list the knowledge and tools you'll need to build TApps.
 
 ## Tools
 To build and run the demo locally, you will need:
@@ -98,11 +99,11 @@ The TEA Project is very different from many other blockchain projects. TEA relie
 - [[TPM]]
 - [[GPS]]
 
-Please click the above links to know more about why and how we use them.
+Please click the above links to learn more about how and why the TEA Project uses these technologies.
 
-If you just want to run the code in your local simulator, you don't need such hardware. You can run it using docker and our simulator.
+If you just want to run the code in your local simulator, you don't need the above hardware. You can run our simulator using docker to run a test environment.
 
-If you want to host your application in the production environment, you will need a TEA node. If you do not own one, the easiest way is to rent a Amazon Nitro VM.
+If you want to host your application in a production environment, you'll need a TEA node. If you don't own one, the easiest way is to rent a Amazon Nitro VM.
 
 # Code walk through
 
@@ -115,8 +116,8 @@ In this section, we'll learn the basic workflow between all three tiers. How a u
 
 # The magical Proof of Time state machine
 In this section, we'll explain how the distributed state machine works, including how it handles consensus among different replicas.
-Keep reading [[magic_of_state_machine]]
+Keep reading about the [[magic_of_state_machine]].
 
 # Understand WebAssembly Runtime
 In this section, we'll go through how the WebAssembly code runs inside the [[mini-runtime]]. 
-Keep reading [[magic_of_wasm]]
+Keep reading about the [[magic_of_wasm]].
