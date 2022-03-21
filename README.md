@@ -1,2 +1,3 @@
-This code repo is the source code of https://teaproject.org/doc/#/doc_list/get_started.md
-The source code was **NOT** designed to read from githhub directly. Please go to the above link to read.
+This is the source code repo of https://teaproject.org/doc/#/doc_list/get_started.md
+
+Please go to the above link to read as this is not designed to be read from githhub directly. 
