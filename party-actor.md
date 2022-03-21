@@ -51,16 +51,16 @@ fn handle_adapter_http_request(req: rpc::AdapterHttpRequest) -> anyhow::Result<V
 	
 ```
 	
-We use **http** request function to handle user event because in current version of Tea Party, the front end send back end http requests. 
+We use the **http** request function to handle user events because in the current version of the TEA Party, the front-end sends the back-end http requests. 
 
-Similar to `handle_adapter_http_request`, we still have `handle_adapter_request` which is a upper level handler. That is because all http requests are actually captured by [[adapter]] first. Adapter is the sole component that a hosting CML can contact the outside world. 
+Similar to `handle_adapter_http_request`, we still have `handle_adapter_request` which is an upper level handler. That's because all http requests are actually captured by the [[adapter]] first. Adapter is the sole component that a hosting CML can contact the outside world. 
 
 # libp2p_back_message
 Tea project uses a modified version of rust-based lib P2P protocol between nodes communication.
 
 The [[hosting_CML]] use `libp2p_back_message` to handle libP2P messages. In our Tea party sample code, the only usage of this function is to receive response message to its own memory cache `help::set_mem_cache(&body.uuid, content)?;`.
 
-The memory cache is used to temporary store the response/error message from the [[State_Machine]].  When [[front_end]] query for the result of any command, the hosting CML's back end actor will check this temporary store to get recently reeived result and get back to the [[front_end]].
+The memory cache is used to temporarily store the response/error message from the [[State_Machine]].  When the [[front_end]] sends a query for the result of any command, the hosting CML's back end actor will check this temporary store to get recently received results and get back to the [[front_end]].
 
 # Interaction with OrbitDB
 
@@ -68,7 +68,7 @@ Query OrbitDb example: load_message_list
 
 Please take a look at the function `pub fn load_message_list(req: &LoadMessageRequest) -> anyhow::Result<Vec<u8>> `  in message.rs file
 
-Focus on this lines
+Focus on these lines:
 ```
 	let dbname = db_name(req.tapp_id, &req.channel);
 	let get_message_data = orbitdb::GetMessageRequest {
@@ -95,18 +95,18 @@ Focus on this lines
 ```
 First, generate the dbname which will be used later in the parameter `get_message_data` of the future provider call `bbs_GetMessage`.
 
-the main function call is the provider call. `tea_codec::ORBITDB_CAPABILITY_ID` is the ID of the OrbitDB [[provider]]. the `bbs_GetMessage` is the API name to call. The parameter needs to `encode_protobuf` so that the provider can decode later. The response of this provider function call is a bytes buffer, so we have to `orbitdb::OrbitBbsResponse::decode` to a regular `res` data structure.
+The main function call is the provider call. `tea_codec::ORBITDB_CAPABILITY_ID` is the ID of the OrbitDB [[provider]]. the `bbs_GetMessage` is the API name to call. The parameter needs to `encode_protobuf` so that the provider can decode it later. The response of this provider function call is a bytes buffer, so we have to issue `orbitdb::OrbitBbsResponse::decode` to a regular `res` data structure.
 
-These lines are the typical way to call a provider. You can find such pattern every where in TEA Project.
+These lines are the typical way to call a provider. You can find such patterns everywhere in the TEA Project.
 
-The rest code is easy to understand. The data respond from OrbitDb provider turns to the message_item list. This list is return to the [[front_end]] caller. Finally show in the UI in browser.
+The rest of the code is easy to understand. The data response from the OrbitDB provider goes to the message_item list. This list is returned to the [[front_end]] caller. Finally, it shows in the UI in the browser.
 
 # Interaction with State Machine
 
-Usually there are two kinds of requests that need to send to [[State_Machine]] to handle. They are either [[queries]]or [[commands]].
+Usually there are two kinds of requests that need to be sent to the [[State_Machine]] to handle. They're either [[queries]] or [[commands]].
 
 ## Command example:  post_message
-The function `post_message` sends a txn (we sometime call it  [[Commands]]) to [[State_Machine]].  The following code send the txn:
+The function `post_message` sends a txn (we sometimes call it sending [[Commands]]) to the [[State_Machine]]).  The following code sends the txn:
 ```
 	send_txn(
 		"post_message",
@@ -116,7 +116,7 @@ The function `post_message` sends a txn (we sometime call it  [[Commands]]) to [
 		&tea_codec::ACTOR_PUBKEY_PARTY_CONTRACT.to_string(),
 	)?;
 ```
-In this function call, `"post_message"` is the name of API that [[statemachine-actor]] can handle.  `uuid` is the nonce that the back end actor can later check the execution result. `txn_bytes` is the body of txn. 
+In this function call, `"post_message"` is the name of the API that [[statemachine-actor]] can handle.  `uuid` is the nonce that the back-end actor uses to check the execution result. `txn_bytes` is the body of txn. 
 
 Let's follow the send_txn code in request.rs:
 ```
@@ -144,17 +144,18 @@ pub fn send_txn(
 }
 ```
 
-If we keep follow the call stack you will eventually find more interesting detail but we have to stop here, otherwise, this article would be very very long.
+If we keep following the call stack we'll eventually find more interesting details but we have to stop here. Otherwise, this article would become very long.
 
-The remaining logic would be described like the following:
-- Check the layer one, find currently active state machine replicas, and their p2p addresses
-- Randomly select 2 (or more if you think necessory) [[State_Machine_Replica]]s. Send the txn in P2P message to them.
-- After the first txn P2P message sent out. Record the time from the GPS atomic clock. 
-- Use this time stamp in the [[Followup]] message in Ts field. Note, we only need the first txn sent out time, ignore the  2nd txn sent out time.
-- Send out the [[Followup]] message to those two [[State_Machine_Replica]] too.  Function `pub fn send_followup_via_p2p(fu: Followup, uuid: String)`
+The remaining logic would be described as follows:
+
+- Check the layer one, find the currently active state machine replicas, and their p2p addresses
+- Randomly select 2 (or more if you think necessary) [[State_Machine_Replica]]s. Send the txn in P2P message to them.
+- After the first txn P2P messages are sent out, record the time from the GPS atomic clock. 
+- Use this time stamp in the [[Followup]] message in the Ts field. Note, we only need the first txn's sent time, ignore the 2nd txn sent time.
+- Send out the [[Followup]] message to those two [[State_Machine_Replica]]s (function `pub fn send_followup_via_p2p(fu: Followup, uuid: String)`).
 
 ## Query example: query_balance
-This function check user balance they topup to Tea Party app account. `"query_balance" => api::query_balance(&serde_json::from_slice(&req.payload)?),`
+This function checks the user balance they've topped up to their TEA Party app account. `"query_balance" => api::query_balance(&serde_json::from_slice(&req.payload)?),`
 
 You can find the main function here in user.rs
 ```
@@ -184,7 +185,7 @@ pub fn query_balance(req: &HttpQueryBalanceRequest) -> anyhow::Result<Vec<u8>> {
 	Ok(b"ok".to_vec())
 }
 ```
-Finally the function call to send the P2P message is here inside p2p_send.rs
+Finally the function call to send the P2P message is here inside p2p_send.rs:
 ```
 pub fn p2p_send_query(
 	query_bytes: Vec<u8>,
@@ -211,7 +212,7 @@ pub fn p2p_send_query(
 	Ok(())
 }
 ```
-You can find how finally the [[hosting_CML]] find the [[State_Machine_Replica]] nodes and send out here in p2p_send_to_receive_actor function.
+You can follow how the [[hosting_CML]] finds the [[State_Machine_Replica]] nodes and sends out using the p2p_send_to_receive_actor function:
 ```
 fn p2p_send_to_receive_actor(msg: Vec<u8>) -> anyhow::Result<()> {
 	let a_nodes = get_all_active_a_nodes()?;
@@ -257,12 +258,12 @@ fn p2p_send_to_receive_actor(msg: Vec<u8>) -> anyhow::Result<()> {
 	Ok(())
 }
 ```
-The `a_nodes` is the internal name for [[State_Machine_Replica]].  `target_conn_id` is the address that libp2p can find the destination nodes. 
+The `a_nodes` is the internal name for [[State_Machine_Replica]].  `target_conn_id` is the address that libp2p can use to find the destination nodes. 
 
 ## Query response after request
-You may be noted that no matter [[Commands]] or [[queries]], the caller will not get the response immediately. Even for [[Queries]] that supposed no to wait in the [[Conveyor]]. That is because all communication between nodes are asyncrhonized. However, you can always query the result using the `uuid` when you generate the request.
+You may have noticed that no matter if it's [[Commands]] or [[queries]], the caller will not get the response immediately (even for [[Queries]] that are not supposed to have to wait in the [[Conveyor]]. That's because all communication between nodes are asyncronous. However, you can always query the result using the `uuid` when you generate the request.
 
-The front end can use http `query_result` to get the result.
+The front-end can use http `query_result` to get the result.
 ```
 
 		"query_result" => {
@@ -273,5 +274,5 @@ The front end can use http `query_result` to get the result.
 
 ```
 
-Please be noted, front end has no way to know when the result would be ready. It is common that the front end need to query several times to get the result. You can find the sample of how to query result in the [[front_end]] code `bbs.js`, the function is `const sync_request = async (method, param, message_cb, sp_method='query_result', sp_uuid=null)`.
+Please note, the front-end has no way to know when the result will be ready. It's common that the front-end needs to query several times to get the result. You can find the sample of how to query the result in the [[front_end]] code. In `bbs.js`, the function is `const sync_request = async (method, param, message_cb, sp_method='query_result', sp_uuid=null)`.
 
