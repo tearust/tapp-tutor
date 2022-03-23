@@ -9,27 +9,27 @@ We built tje TEA Party TApp to show:
 
 - How to use Tea Party as a boilerplate to build your own TApps.
 
-The TEA Party TApp is a useful social media application. Users can post messages to a public board as well as send private messages with notifications. See [[how_to_use_TEA_Party]]
+The TEA Party TApp is a useful social media application. Users can post messages to a public board as well as send private messages with notifications. See [[how_to_use_TEA_Party]] for more information.
 
 
-# TApp is designed for Web 3.0
+# TApp is designed for Web3
 As is the case with all TApps, the TEA Party showcases the special features that are beyond the capabilities of other cloud based internet (web 2.0) applications. Instead of centralized server(s) hosting the app, the individual miners of the TEA network host TApps based solely on their own [[hosting_profitability]]. The inherent decentralization that all TApps including the TEA Party share gives these apps even more unique features:
 
 - They cannot be turned off by any centralized power. As long as there are a minimal number of miners hosting any particular application, it will continue to run forever.
 
 - No one, including the host miner, can control or censor the content. The content is owned and protected by its creator's private key. A miner can choose to stop hosting the TApp, but it cannot selectively choose what content to show or hide.
 
-- There's no free lunch. Every action that costs any computing resources needs to be paid by someone. In TEA Party's particular case, every message sent need to be paid for. Additional charges also apply to store the message or to notify the recipient.  Further link [[Where_the_message_is_stored?]]
+- There's no free lunch. Every action that costs any computing resources needs to be paid by someone. In TEA Party's particular case, every message sent needs to be paid for. Additional charges also apply to store the message or to notify the recipient. For further information, see [[Where_the_message_is_stored?]]
 
-In order to get the features above, the underlying technical layer is very different from the existing cloud computing and blockchain tech stacks. It's a new tech stack that's based on recent technologies.  However, the developers do not need to understand the complicated low level distributed system, they can build application **as if** it is still a centralized cloud computing architecture. This is the **charm of Tea Project**.
+In order to get the features above, the underlying technical layer is very different from the existing cloud computing and blockchain tech stacks. It's a new tech stack that's based on recent technologies.  However, the developers do not need to understand the complicated low level distributed system, they can build application **as if** it is still a centralized cloud computing architecture. This is the **charm of the TEA Project**.
 
-The following sections will explain the cutting edge technologies used in the TEA Party. We hope by explaining the underlying technologies and how they work together will help you make your own TEA applications (TApps).
+The following sections will explain the cutting edge technologies used in the TEA Party. We hope explaining the underlying technologies and how they work together will help you make your own TEA applications (TApps).
 
 # Three Major Parts
-The full architecture of TEA Project is complicated but there are only three majors parts that an application developer needs to work on. These three major parts run in three different locations just like the traditional 3-tier-architecture of cloud computing web apps. 
+The full architecture of the TEA Project is complicated but there are only three majors parts where an application developer will be working. These three major parts all run in different locations just like the traditional 3-tier-architecture of cloud computing web apps. 
 
 ## [[front_end]]
-This is a typical JS application (for webapp), or mobile application (for mobile app). The front-end is running inside of a browser or mobile device.
+This is a typical JS application (for webapps), or a mobile application (for mobile apps). The front-end is running inside of a browser or mobile device.
 
 ## [[back_end_actor]]
 This WebAssembly code is running inside of a hosting node. The hosting node is a miner's computer which has a CML planted. It's similar to the server logic running in back-end servers or application servers in the traditional cloud computing architecture.
@@ -38,7 +38,7 @@ This WebAssembly code is running inside of a hosting node. The hosting node is a
 This WebAssembly code is running inside the state machine's [[mini-runtime]]. It's equivalent to the stored procedure (SQL for example code) in the traditional 3-tier architecture's database.
 
 # [[3_tier_architecture]] basic workflow
-The above 3 components are directly mapped to the traditional 3-tier architecture in the cloud computing application.
+The above 3 components are directly mapped to the traditional 3-tier architecture of a typical cloud computing application.
 
 The basic workflow would be this: 
 (this example uses a web-based TApp)
@@ -61,7 +61,7 @@ There are three types of storage options for different use cases.
 | State | Non-relational | High | Strong consistency | Account balance |
 | GlueSQL | Relational (SQL) | High | Strong consistency | Not yet in use but can be used in common SQL business logic|
 
- # Comparison with cloud webapp 3-tier architect
+ # Comparison with a cloud webapp's 3-tier architecture
 | User action | step  | Eth based dApps |cloud webapp | TEA project |  Note |
 |-------------|-------| ------|---------------|-------------|-------|
 | Click the app to start | Start a web app | N/A | Go to a domain name, usually https://yourapp.com | Click the app name in your TEA wallet, you'll receive a list of hosting CMLs. Click any of them | Cloud webapp has a centralized http/https domain name, but TEA doesn't have such a centralized control. Every hosting miner are seperate from each other |
@@ -70,11 +70,11 @@ There are three types of storage options for different use cases.
 |  Create or update dynamic content, such as post new messages or extend existing messages | Send command to modify state | Send transaction to any ETH miner and wait for a new block |The same as above | [[front_end]] sends command to the [[back_end_actor]]. [[back_end_actor]] generates a transaction (or calls a command) and sends it to a [[State_Machine_Replica]] via P2P. The statemachine replica puts this transaction into the [[conveyor]] and then waits a grace period until the sequence of transactions reaches a consensus between more than 50% of replicas. Then load this transaction to the [[back_end_actor]] to execute the transaction which will update the state | There are many state machine replicas that keep a consistent state among them. So the Proof of Time is required to sync between replicas. |
 
 
-# The requiements of building TApps
+# The requirements for building TApps
 In this section, we'll list the knowledge and tools you'll need to build TApps.
 
 ## Tools
-To build and run the demo locally, you will need:
+To build and run the demo locally, you'll need:
 
 - a Linux or Mac. 
 - Docker and docker-compose installed.
@@ -109,10 +109,10 @@ If you want to host your application in a production environment, you'll need a 
 
 In this section, we'll walk through the TEA Party application's sample code. 
 
-Please continue read [[code_walkthrough]]
+Please continue reading the [[code_walkthrough]].
 
 # Basic workflow
-In this section, we'll learn the basic workflow between all three tiers. How a user action get processed from the front-end to the state machine layer and back to the user.
+In this section, we'll learn the basic workflow between all three tiers: how a user action get processed from the front-end to the state machine layer and back to the user.
 
 # The magical Proof of Time state machine
 In this section, we'll explain how the distributed state machine works, including how it handles consensus among different replicas.
