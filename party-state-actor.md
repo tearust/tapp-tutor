@@ -1,6 +1,6 @@
 This actor is loaded into the [[State_Machine_Replica]]'s [[mini-runtime]]. It is the same concept as stored procedure in traditional cloud computing webapp. There are many pure functions that handle incoming txns and modify the state (including [[state]] and [[GlueSQL]] data).
 
-As you already know, every [[State_Machine_Replica]] runs an instance of this actor. All of them run the same txn at the same sequence and modify the same state to finally get the same new state. This is guaranteed by the [[Proof_of_Time]] consensus. As an application developer, you don't need to care too much about how it works. You can simply assume there's only one instance of your function running that updates a single state. 
+As you already know, every [[State_Machine_Replica]] runs an instance of this actor. All of them run the same txn at the same sequence and modify the same state to finally get the same new state. This is guaranteed by the [[consensus#Proof of Time| proof of time]] consensus. As an application developer, you don't need to care too much about how it works. You can simply assume there's only one instance of your function running that updates a single state. 
 
 There are two types of requests: [[queries]] and [[commands]]. Please click the links to get to know more about them. At least you should know that queries execute immediately, but commands need to wait a period of time prior to execution. 
 

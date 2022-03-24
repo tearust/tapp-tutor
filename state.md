@@ -4,4 +4,6 @@
 
 In a traditional cloud computing architecture, the database is most likely used as state storage. In the blockchain world, the whole blockchain is a giant distributed state machine. For example, Ethereum itself is a state machine. Everytime clients send transactions to update the state, every new block means a new updated state is released. 
 
-In the TEA Project, we don't store the application state in the blockchain. Instead, the state is stored in a group of [[State_Machine_Replica]]s. We use a new [[Proof_of_Time]] hardware consensus to achieve super fast speed (relative to traditional blockchain) and processing power without sacrificing security or scalability.  
+In the TEA Project, we don't store the application state in the blockchain. Instead, the state is stored in a group of [[State_Machine_Replica]]s. We use a new [[consensus#Proof of Time|Proof of Time]] hardware consensus to achieve super fast speed (relative to traditional blockchain) and processing power without sacrificing security or scalability.  
+
+Please keep reading the [[State_Machine]] and [[consensus]] for more details.
