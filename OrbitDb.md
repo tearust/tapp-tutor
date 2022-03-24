@@ -15,14 +15,14 @@ The data used in one applicaiton is encrypted using this application AES key ins
 The [[App_AES_Key]] is stored inside the [[State_Machine]] which is consider the top security of the whole TEA Project network. When a new applicaiton host instance starts, it will request such a AES key to the [[State_Machine]]. After a restricted scurity check, the instance can receive such AES key. Because the AES key only live inside enclave (both state machine or hosting nodes.), it is unknown to outside world.
 
 # Sync
-For every TApp, there are multiple hosting nodes. Every node has their own OrbitDB instance running inside the node (outside of [[enclave]]). They sync with each other using the standard OrbitDb sync algorithm. Please read https://orbitdb.org for more detial on sync.  
+For every TApp, there are multiple hosting nodes. Every node has their own OrbitDB instance running inside the node (outside of the [[enclave]]). They sync with each other using the standard OrbitDB sync algorithm. Please read https://orbitdb.org for more details on the sync method.  
 
-Because all of these instances share the same [[App_AES_Key]], the data would be the same across all nodes. They can take the advantage of duplication of IPFS/OrbitDB.
+Because all of these instances share the same [[App_AES_Key]], the data is the same across all nodes as they take advantage of the duplication provided by IPFS/OrbitDB.
 
 # Cost
-Since OrbitDB lives outside of [[enclave]] and stored on hard disk(actually IPFS). It would be much cheaper than the [[State_Machine]], as the [[State_Machine]] data stays inside the RAM of [[encoave]]. Of course, the [[State_Machine]] would be a much limited resource and much more expensive than hard disk outside of enclave.
+Since OrbitDB lives outside of the [[enclave]] and is stored on a hard disk (actually IPFS), using it would be much cheaper compared to the [[State_Machine]] (whose data stays inside the RAM of the [[enclave]]). Of course, the [[State_Machine]] would be a much more limited resource and be much more expensive than hard disk space outside of the enclave.
 
 # Eventual consistency
-OrbitDB provides [**eventual consistency**](https://en.wikipedia.org/wiki/Eventual_consistency).  Which means you could get temporary inconsistency across all nodes. Your TApp has to handle this sceanario in the business and UI logic.
+OrbitDB provides [**eventual consistency**](https://en.wikipedia.org/wiki/Eventual_consistency), which means you could get temporary inconsistency across all nodes. Your TApp has to handle this possible scenario in its business and UI logic.
 
-If your data is very time sensitive that requires [**strong consistency**](https://en.wikipedia.org/wiki/Strong_consistency), please use more expensive [[State_Machine]] instead.
+If your data is very time sensitive and requires [**strong consistency**](https://en.wikipedia.org/wiki/Strong_consistency), please use the more expensive [[State_Machine]] instead.
