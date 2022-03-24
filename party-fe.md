@@ -347,4 +347,28 @@ Now the whole txn workflow completed.
 # Workflow
 To make the workflow clear and visual. let's draw a sequence diagram.
 
-TODO:
+```mermaid
+sequenceDiagram  
+ autonumber
+ participant Front end
+ participant Back end
+ participant State machine receiver
+ participant State machine executor
+ 
+ Front end->>+Back end: Step1, send uuid and txn
+ Back end->>+State machine receiver: send txn and follow up  
+ Back end->>-Front end: response ok
+ State machine receiver->>-Back end: Got it with txn hash
+ Front end->>+Back end: Step2, query txn hash using uuid
+ Back end->>-Front end: response txn hash
+ State machine receiver->>+State machine executor: sometime later, popup from conveyor and execute
+ Front end->>+Back end: Step3, Initialize result query
+ Back end->>-Front end: ok
+ State machine executor->>-State machine receiver: Executed, result is...
+ Back end->>+State machine receiver: Query result
+ State machine receiver->>-Back end: Response result. Back end store in cache. If result is not ready, ask to query later again.
+ Front end->>+Back end: Step4, Query result
+ Back end->>-Front end: Response result. if not ready, ask to query again later.
+ Front end->>+Back end: Optional step5, follow up tasks...
+ Back end->>-Front end: Ok...
+```
