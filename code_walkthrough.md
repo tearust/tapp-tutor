@@ -98,7 +98,7 @@ sequenceDiagram
 ```
 
 ## Running SQL queries
-Running SQL queries is almost the same as running a query against the state. Only replace the state with GlueSQL instance.
+Running SQL queries is almost the same as running a query against the state. Only replace the state with GlueSQL instance. Note: SQL queries are not allowed to change the state. `Select` statement is allowed.
 
 ```mermaid
 sequenceDiagram
@@ -123,6 +123,83 @@ sequenceDiagram
 	A->>A: render the browser. show the result on UI
 	
 ```
+
+## Send SQL scripts to change SQL database
+Rather than `select`, many SQL statements will change the database. They are all considered **command**. The workflow is almost the same as the state command. Just replace the state with GlueSQL instance.
+
+```mermaid
+sequenceDiagram
+	participant A as Front end
+	participant B as Back end
+	participant C as IPFS/OrbitDB
+	participant D as State machine receiver
+	participant E as State machine conveyor
+	participant F as State machine actor
+	participant G as State
+	participant H as GlueSQL
+	A->>B: http request to transfer a NFT . (eg. Alice send a CML to Bob)
+	B->>B: genreate the transfer SQL scripts in back end actor
+	B->>D: send command to at least two State Machine Replicas
+	D->>E: put the command txn on the conveyor
+	E->>E: re-order all txns in the queue during the grace period
+	E->>+F: time is up. the command is sent to state machine actor to execute
+	F->>+H: state machine actor execute the txn and update the GlueSQL database
+	H->>-F: GlueSQL commited successful. response ok
+	F->>-D: response ok
+	D->>B: response ok
+	B->>A: response ok
+	
+```
+
+## Load / save NoSQL data with OrbitDB
+Because the state and GlueSQL are memory based distributed database, they are very expensive when store large data. All large data are supposed to be stored in the OrbitDB(structured data) or IPFS(blob data/ files).
+
+OrbitDB and IPFS live inside the [[hosting_CML]], so the [[State_Machine_Replica]]s are not invovled in this workflow. 
+
+```mermaid
+sequenceDiagram
+	participant A as Front end
+	participant B as Back end
+	participant C as IPFS/OrbitDB
+	participant D as State machine receiver
+	participant E as State machine conveyor
+	participant F as State machine actor
+	participant G as State
+	participant H as GlueSQL
+	A->>B: Load the messages list in TEA Party
+	B->>C: load messages from OrbitDB
+	C->>B: respones the list of messages body
+	B->>A: messages body list
+	A->>A: show the message content on the UI
+```
+
+The diagram above shows a common use case that load all messages. But in many cases, the ids (index) of the OrbitDB is stored in GlueSQL, so it is very common that query GlueSQL first to get the IDs, then query OrbitDB using the IDs to get the real data body.
+
+```mermaid
+sequenceDiagram
+	participant A as Front end
+	participant B as Back end
+	participant C as IPFS/OrbitDB
+	participant D as State machine receiver
+	participant E as State machine conveyor
+	participant F as State machine actor
+	participant G as State
+	participant H as GlueSQL
+	A->>B: Load the messages list that I have starred in TEA Party
+	B->>B: generate a SQL scripts that query for all message IDs that I starred in the GlueSQL
+	B->>D: Send query txn. 
+	D->>F: queries do not need conveyor, it go to state machine actor to execute immediately
+	F->>H: run the SQL scripts for IDs of messages that I starred
+	H->>F: response the message IDs
+	F->>D: response the message IDs
+	D->>B: response the message IDs
+	B->>C: load messages from OrbitDB using the IDs just received from GlueSQL
+	C->>B: respones the list of messages body that I starred
+	B->>A: messages body list that I starred
+	A->>A: show the message content on the UI. all of them are messages that I starred
+```
+
+The above diagram shows the combination of SQL and NoSQL. 
 
 # Read details in each of three parts
 
