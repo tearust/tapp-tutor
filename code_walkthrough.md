@@ -8,7 +8,7 @@ The steps are:
 - Understand the compile workflow.
 - Run it.
 
-## Code location and structure
+# Code location and structure
 Start by cloneing the following GitHub repo to your local machine:
 https://github.com/tearust/tapp-sample-teaparty
 
@@ -204,7 +204,9 @@ The above diagram shows the combination of SQL and NoSQL.
 # Read ruther details on each of the three parts
 
 Click on any of the following links for more details:
-Code walkthrough for [[party-fe]]. 
-Code walkthrough for [[party-actor]]. 
-Code walkthrough for [[party-state-actor]]. 
+- Code walkthrough for [[party-fe]]. 
+- Code walkthrough for [[party-actor]]. 
+- Code walkthrough for [[party-state-actor]]. 
 
+# Run it
+TODO:
