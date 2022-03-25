@@ -59,12 +59,68 @@ sequenceDiagram
 	participant H as GlueSQL
 	A->>B: http request to query account balance of a user
 	B->>D: send query to at least two State Machine Replicas
-	D->>+G: queries do not require conveyor wait, it can query state immediately
-	
-	G->>-D: send back the account balance response
+	D->>+F: queries do not require conveyor wait, it can query state immediately
+	F->>+G: actor query state
+	G->>-F: state response to actor
+	F->>-D: send back the account balance response
 	D->>B: send back the account balance response
 	B->>A: send back the account balance response
 	A->>A: render the browser. show the account balance on the UI
+	
+```
+## Send command that changes state
+Commands are more complicated before it will change the state. Like any other distributed state machine, we have to make sure the state in all [[State_Machine_Replica]] to be consistent. We use the [[conveyor]] algorithm to sort the commands by the timestamp and executed in an identical order across all replicas.
+
+The following diagram demostrates the workflow how a simple transfer txn command to be handled. Note that this diagram is a simplifed verison. The full version can be found here [[party-fe#Workflow]]
+
+```mermaid
+sequenceDiagram
+	participant A as Front end
+	participant B as Back end
+	participant C as IPFS/OrbitDB
+	participant D as State machine receiver
+	participant E as State machine conveyor
+	participant F as State machine actor
+	participant G as State
+	participant H as GlueSQL
+	A->>B: http request to transfer fund . (eg. Alice send 10T to Bob)
+	B->>B: genreate the transfer txn command in back end actor
+	B->>D: send command to at least two State Machine Replicas
+	D->>E: put the command txn on the conveyor
+	E->>E: re-order all txns in the queue during the grace period
+	E->>+F: time is up. the command is sent to state machine actor to execute
+	F->>+G: state machine actor execute the txn and update the state
+	G->>-F: state commited successful. response ok
+	F->>-D: response ok
+	D->>B: response ok
+	B->>A: response ok
+	
+```
+
+## Running SQL queries
+Running SQL queries is almost the same as running a query against the state. Only replace the state with GlueSQL instance.
+
+```mermaid
+sequenceDiagram
+	participant A as Front end
+	participant B as Back end
+	participant C as IPFS/OrbitDB
+	participant D as State machine receiver
+	participant E as State machine conveyor
+	participant F as State machine actor
+	participant G as State
+	participant H as GlueSQL
+	A->>B: http request to query something that stored in SQL database
+	B->>B: generate SQL scripts
+	
+	B->>D: send SQL scripts to at least two State Machine Replicas
+	D->>+F: queries do not require conveyor wait, it can execute in state machine actor that query GlueSQL immediately
+	F->>+H: run SQL scripts in GlueSQL instance.
+	H->>-F: response query result
+	F->>-D: send back the query result
+	D->>B: send back the query result
+	B->>A: send back the query result
+	A->>A: render the browser. show the result on UI
 	
 ```
 
