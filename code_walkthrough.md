@@ -9,6 +9,7 @@ The steps are:
 - Run it.
 
 # Code location and structure
+
 Start by cloneing the following GitHub repo to your local machine:
 https://github.com/tearust/tapp-sample-teaparty
 
@@ -18,8 +19,12 @@ There are 4 folders (click the following links for more details):
 - [[party-actor]]: This is the [[back_end_actor]].
 - party-share: This is the common data structure or library that shared by both the [[back end  actor]] and the [[state machine actor]].
 - [[party-state-actor]]: This is the [[state_machine_actor]].
+
+
 # Workflow
+
 ## Load the UI 
+
 Any user can launch a TApp by clicking on one of the [[hosting CML]]s urls (there's no domain used when launching TApps). Picking any of the urls will work exactly the same so you can choose the one with least network latency. The URL is nothing but an IPFS CID.
 
 Note: This is a brief diagram. The real communication is more complicated than this.
@@ -42,6 +47,7 @@ sequenceDiagram
 ```
 
 ## Query the state
+
 Accounting information is stored in the state (e.g. when querying the balance of a user's TApp account.)
 
 Querying the state can return the result without having to wait in conveyor queue. But the communication is still async, so additional queries for more results are still needed which is not shown in the diagram. You can see the details on additional queries at [[party-fe#Workflow]].
@@ -69,6 +75,7 @@ sequenceDiagram
 	
 ```
 ## Send a command that changes the state
+
 Commands are more complicated in that certain precautions must be taken before they're allowed to change the state. Like any other distributed state machine, we have to make sure the state in all the [[State_Machine_Replica]]s are consistent. We use the [[conveyor]] algorithm to sort the commands by their timestamp and are executed in identical order across all replicas.
 
 The following diagram demonstrates the workflow of how a simple transfer txn command is handled. Note that this diagram is a simplifed verison. The full version can be found here: [[party-fe#Workflow]]
@@ -98,6 +105,7 @@ sequenceDiagram
 ```
 
 ## Running SQL queries
+
 Running SQL queries is almost the same as running a query against the state. The only difference is that we replace the state with the GlueSQL instance. Note: SQL queries are not allowed to change the state. Only `Select` statements are allowed in SQL queries.
 
 ```mermaid
@@ -125,6 +133,7 @@ sequenceDiagram
 ```
 
 ## Send SQL scripts to change SQL database
+
 Rather than `select`, many SQL statements will change the database. They are all considered **commands**. The workflow is almost the same as the state command, with the state being replaced by the GlueSQL instance.
 
 ```mermaid
@@ -152,6 +161,7 @@ sequenceDiagram
 ```
 
 ## Load / save NoSQL data with OrbitDB
+
 Because the state and GlueSQL are memory based distributed databases, they're very expensive when used to store large amounts of data. TApps needing to store large amounts of data should use either OrbitDB (structured data) or IPFS (blob data/ files).
 
 OrbitDB and IPFS live inside the [[hosting_CML]], so the [[State_Machine_Replica]]s are not involved in this workflow. 
@@ -209,4 +219,5 @@ Click on any of the following links for more details:
 - Code walkthrough for [[party-state-actor]]. 
 
 # Run it
+
 TODO:
