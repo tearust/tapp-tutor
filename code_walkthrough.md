@@ -9,10 +9,10 @@ The steps are:
 - Run it.
 
 ## Code location and structure
-Please clone the following github repo to your local machine:
+Start by cloneing the following GitHub repo to your local machine:
 https://github.com/tearust/tapp-sample-teaparty
 
-There are 4 folders (click the links for more details):
+There are 4 folders (click the following links for more details):
 
 - [[party-fe]]: This is the [[front_end]].
 - [[party-actor]]: This is the [[back_end_actor]].
@@ -20,9 +20,9 @@ There are 4 folders (click the links for more details):
 - [[party-state-actor]]: This is the [[state_machine_actor]].
 # Workflow
 ## Load the UI 
-There is no domain of TApps. User click one of the [[hosting CML]]s url to launch tapp. Any of the urls will work exactly the same. You can choose the one with least network latency. The URL is nothing but a IPFS CID.
+Any user can launch a TApp by clicking on one of the [[hosting CML]]s urls (there's no domain used when launching TApps). Picking any of the urls will work exactly the same so you can choose the one with least network latency. The URL is nothing but an IPFS CID.
 
-Note: This is a brief diagram, the real communication is more complicated than this.
+Note: This is a brief diagram. The real communication is more complicated than this.
 ```mermaid
 sequenceDiagram
 	participant A as Front end
@@ -42,11 +42,11 @@ sequenceDiagram
 ```
 
 ## Query the state
-Accounting information are stored in the state. For example, when querying the balance of my tapp account.
+Accounting information is stored in the state (e.g. when querying the balance of a user's TApp account.)
 
-Query the state can return without waiting in conveyor queue. But the communication is still async, so additional queries for result is needed which is not shown in the diagram. You can see the detail additional queries at [[party-fe#Workflow]].
+Querying the state can return the result without having to wait in conveyor queue. But the communication is still async, so additional queries for more results are still needed which is not shown in the diagram. You can see the details on additional queries at [[party-fe#Workflow]].
 
-Note: This is a brief diagram, the real communication is more complicated than this.
+Note: This is a brief diagram. The real communication is more complicated than this.
 ```mermaid
 sequenceDiagram
 	participant A as Front end
@@ -68,10 +68,10 @@ sequenceDiagram
 	A->>A: render the browser. show the account balance on the UI
 	
 ```
-## Send command that changes state
-Commands are more complicated before it will change the state. Like any other distributed state machine, we have to make sure the state in all [[State_Machine_Replica]] to be consistent. We use the [[conveyor]] algorithm to sort the commands by the timestamp and executed in an identical order across all replicas.
+## Send a command that changes the state
+Commands are more complicated in that certain precautions must be taken before they're allowed to change the state. Like any other distributed state machine, we have to make sure the state in all the [[State_Machine_Replica]]s are consistent. We use the [[conveyor]] algorithm to sort the commands by their timestamp and are executed in identical order across all replicas.
 
-The following diagram demostrates the workflow how a simple transfer txn command to be handled. Note that this diagram is a simplifed verison. The full version can be found here [[party-fe#Workflow]]
+The following diagram demonstrates the workflow of how a simple transfer txn command is handled. Note that this diagram is a simplifed verison. The full version can be found here: [[party-fe#Workflow]]
 
 ```mermaid
 sequenceDiagram
@@ -98,7 +98,7 @@ sequenceDiagram
 ```
 
 ## Running SQL queries
-Running SQL queries is almost the same as running a query against the state. Only replace the state with GlueSQL instance. Note: SQL queries are not allowed to change the state. `Select` statement is allowed.
+Running SQL queries is almost the same as running a query against the state. The only difference is that we replace the state with the GlueSQL instance. Note: SQL queries are not allowed to change the state. Only `Select` statements are allowed in SQL queries.
 
 ```mermaid
 sequenceDiagram
@@ -125,7 +125,7 @@ sequenceDiagram
 ```
 
 ## Send SQL scripts to change SQL database
-Rather than `select`, many SQL statements will change the database. They are all considered **command**. The workflow is almost the same as the state command. Just replace the state with GlueSQL instance.
+Rather than `select`, many SQL statements will change the database. They are all considered **commands**. The workflow is almost the same as the state command, with the state being replaced by the GlueSQL instance.
 
 ```mermaid
 sequenceDiagram
@@ -152,9 +152,9 @@ sequenceDiagram
 ```
 
 ## Load / save NoSQL data with OrbitDB
-Because the state and GlueSQL are memory based distributed database, they are very expensive when store large data. All large data are supposed to be stored in the OrbitDB(structured data) or IPFS(blob data/ files).
+Because the state and GlueSQL are memory based distributed databases, they're very expensive when used to store large amounts of data. TApps needing to store large amounts of data should use either OrbitDB (structured data) or IPFS (blob data/ files).
 
-OrbitDB and IPFS live inside the [[hosting_CML]], so the [[State_Machine_Replica]]s are not invovled in this workflow. 
+OrbitDB and IPFS live inside the [[hosting_CML]], so the [[State_Machine_Replica]]s are not involved in this workflow. 
 
 ```mermaid
 sequenceDiagram
@@ -173,7 +173,7 @@ sequenceDiagram
 	A->>A: show the message content on the UI
 ```
 
-The diagram above shows a common use case that load all messages. But in many cases, the ids (index) of the OrbitDB is stored in GlueSQL, so it is very common that query GlueSQL first to get the IDs, then query OrbitDB using the IDs to get the real data body.
+The diagram above shows a common use case that loads all messages. But in many cases, the ids (index) of the OrbitDB is stored in GlueSQL, so it's very common to first have to query GlueSQL to get the IDs. After successfully querying GlueSqL for the IDs, then we can query OrbitDB using the IDs to retrieve the actual data.
 
 ```mermaid
 sequenceDiagram
@@ -201,7 +201,7 @@ sequenceDiagram
 
 The above diagram shows the combination of SQL and NoSQL. 
 
-# Read details in each of three parts
+# Read ruther details on each of the three parts
 
 Click on any of the following links for more details:
 Code walkthrough for [[party-fe]]. 
