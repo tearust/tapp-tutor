@@ -1,7 +1,7 @@
 **TEA Party** is a demo [[What_makes_a_Web3_application| Web3.0]] application running on the TEA Project. 
 
 # The goal of TEA Party
-We built tje TEA Party TApp to show: 
+We built the TEA Party TApp to show: 
 
 - What a typical [[What_makes_a_Web3_application|Web3.0]] App (We call them TApps) looks like.
 
