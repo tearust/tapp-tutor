@@ -1,9 +1,9 @@
-**TEA Party** is a demo application running on the TEA Project. 
+**TEA Party** is a demo [[What_makes_a_Web3_application| Web3.0]] application running on the TEA Project. 
 
 # The goal of TEA Party
-We built tje TEA Party TApp to show: 
+We built the TEA Party TApp to show: 
 
-- What a typical TApp looks like.
+- What a typical [[What_makes_a_Web3_application|Web3.0]] App (We call them TApps) looks like.
 
 - The building blocks of a typical TApp.
 
@@ -12,7 +12,7 @@ We built tje TEA Party TApp to show:
 The TEA Party TApp is a useful social media application. Users can post messages to a public board as well as send private messages with notifications. See [[how_to_use_TEA_Party]] for more information.
 
 
-# TApp is designed for Web3
+# TApp is designed for [[What_makes_a_Web3_application|Web 3]]
 As is the case with all TApps, the TEA Party showcases the special features that are beyond the capabilities of other cloud based internet (web 2.0) applications. Instead of centralized server(s) hosting the app, the individual miners of the TEA network host TApps based solely on their own [[hosting_profitability]]. The inherent decentralization that all TApps including the TEA Party share gives these apps even more unique features:
 
 - They cannot be turned off by any centralized power. As long as there are a minimal number of miners hosting any particular application, it will continue to run forever.
@@ -61,7 +61,8 @@ There are three types of storage options for different use cases.
 | State | Non-relational | High | Strong consistency | Account balance |
 | GlueSQL | Relational (SQL) | High | Strong consistency | Not yet in use but can be used in common SQL business logic|
 
- # Comparison with a cloud webapp's 3-tier architecture
+# Comparison with a cloud webapp's 3-tier architecture
+ 
 | User action | step  | Eth based dApps |cloud webapp | TEA project |  Note |
 |-------------|-------| ------|---------------|-------------|-------|
 | Click the app to start | Start a web app | N/A | Go to a domain name, usually https://yourapp.com | Click the app name in your TEA wallet, you'll receive a list of hosting CMLs. Click any of them | Cloud webapp has a centralized http/https domain name, but TEA doesn't have such a centralized control. Every hosting miner are seperate from each other |
@@ -113,6 +114,65 @@ Please continue reading the [[code_walkthrough]].
 
 # Basic workflow
 In this section, we'll learn the basic workflow between all three tiers: how a user action get processed from the front-end to the state machine layer and back to the user.
+
+```mermaid
+sequenceDiagram
+	participant A as Front end
+	participant B as Back end
+	participant C as IPFS/OrbitDB
+	participant D as State machine receiver
+	participant E as State machine conveyor
+	participant F as State machine actor
+	participant G as State
+	participant H as GlueSQL
+	A->>A: click the Tea party URL received from shared link or wallet
+	rect rgb(222,222,222)
+	A->>+B: reqeust to launch the Tea Party via the url link
+	B->>+C: get the CID and request IPFS
+	C->>-B: resposne the html/css/js front end code
+	B->>-A: send back the html/css/js front end code
+	A->>A: render on the browser. show the UI to the end user.
+	end
+	rect rgb(222,222,222)
+	A->>+B: query the NoSQL data (such as messages list without querying SQL database)
+	B->>+C: query OrbitDB
+	C->>-B: response data (such as message body)
+	B->>-A: send message body
+	A->>A: render in browser, showing to the end user
+	end
+	rect rgb(222,222,222)
+	A->>+B: query SQL database (such as my starred message list)
+	B->>+D: sending query txn
+	D->>+F: dispatch query txn
+	F->>+H: actor query GlueSQL
+	H->>-F: response query result (such as my starred message IDs)
+	F->>-D: response ids
+	D->>-B: response ids
+	B->>+C: query the messages body based on message IDs from GlueSQL
+	C->>-B: response message bodies that I starred
+	B->>-A: response message bodies that I starred
+	A->>A: render on browser. 
+	end
+	rect rgb(222,222,222)
+	A->>+B: post a new message
+	B->>B: generate a command txn to pay for the fee
+	B->>D: send the command txn and followup to at least two state machine replicas
+	D->>E: the command txn waiting on all the conveyors
+	E->>E: waiting in conveyor
+	E->>+F: after the grace period, the command txn dispatch to state machine actor for execution
+	F->>+G: actor execute command and call state update
+	G->>G: update state inside state machine 
+	G->>-F: command txn committed and state changed
+	F->>-E: response back
+	E->>D: response back
+	D->>B: response back to hosting CML
+	B->>B: confirm the payment went through, now generate post message txn to OrbitDB
+	B->>+C: insert new message to OrbitDB
+	C->>-B: inserted
+	B->>-A: confirmed posting message completed
+	A->>A: render the UI and notify end user.
+	end
+```
 
 # The magical Proof of Time state machine
 In this section, we'll explain how the distributed state machine works, including how it handles consensus among different replicas.
