@@ -20,4 +20,7 @@ sort:
   - name: The magic of WebAssembly
     path: /magic_of_wasm.md
 
+  - name: TEA economy and the Web3 Revolution for Developers
+    path: /TEA_economy_and_Web3_revolution_for_developers.md
+    
 
