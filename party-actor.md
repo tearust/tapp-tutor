@@ -2,7 +2,7 @@
 
 In the lib.rs file, you'll find the `handle_adapter_http_request` function. All of these branches are messages that this actor can handle.
 
-```
+``` rust
 fn handle_adapter_http_request(req: rpc::AdapterHttpRequest) -> anyhow::Result<Vec<u8>> {
 	match req.action.as_str() {
 		"login" => api::login_request(&serde_json::from_slice(&req.payload)?),
@@ -47,7 +47,7 @@ fn handle_adapter_http_request(req: rpc::AdapterHttpRequest) -> anyhow::Result<V
 			Err(anyhow::anyhow!("{}", DISCARD_MESSAGE_ERROR))
 		}
 	}
-	
+}	
 	
 ```
 	
