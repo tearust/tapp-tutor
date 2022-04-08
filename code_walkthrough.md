@@ -177,9 +177,9 @@ sequenceDiagram
 	participant G as State
 	participant H as GlueSQL
 	A->>B: Load the messages list in TEA Party
-	B->>C: load messages from OrbitDB![[bob-digest.json]]
+	B->>C: load messages from OrbitDB [[bob-digest.json]]
 	C->>B: respones the list of messages body
-	B->>A: messages body list![[bob-digest 1.json]]
+	B->>A: messages body list [[bob-digest 1.json]]
 	A->>A: show the message content on the UI
 ```
 
