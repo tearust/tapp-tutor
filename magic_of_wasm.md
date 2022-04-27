@@ -20,7 +20,7 @@ In programming, there's always a tradeoff between security and functionaility. T
 # TEA Project is not a smart contract, it's Web3
 The goal of the TEA Project is to run standard Web3 applications decentralized. Running a smart contract is not the goal. So TEA has to support std which may potentially cause some security issues which Substrate didn't have to deal with. Of course, we cannot sacrifice security in the TEA Project, so we designed the following complicated model to minimize the risk.
 
-##  Wasm model as "[[actor]]" and runs inside [[a mini-runtime]]
+##  Wasm model as "[[actor]]" and runs inside a[[mini-runtime]]
 
 The mini-runtime can be considered a specially designed virtual machine. It loads [[actor]]s into isolated spaces. Although this is "std" Wasm, it's still limited heavily by the mini-runtime.  Because the mini-runtime runs inside the hardware [[enclave]], the enclave is a specially designed linux mini core OS. We removed most of the common Linux components to reduce the attack surface, including the network and file system which are all gone. If any malicious code happens to run inside the enclave (we don't how that would happen, but let's just assume), it will not cause any further damage since there's no network or file system to break. 
  
@@ -36,7 +36,7 @@ If it can break this first security barrier, the capability signature check will
 
 Let's imagine that it can somehow break this barrier as well, and somehow it gains this capability and can successfully call the provider inside the mini-runtime. The provider has additional checks before invoking any important functions. Those additional checks include (most commonly) the caller actor ID, destination peer_id, destination actor_id, traffic pattern etc. It will reject any suspicious function call and report it to Remote Attestation.
 
-The providers are currently written by the TEA Project team, not by 3rd party open-source developers. Upgrading [[providers]] is a very sensitive workflow and care is taken to prevent any malicious code getting introduced into the [[mini-rumtime]]. 
+The providers are currently written by the TEA Project team, not by 3rd party open-source developers. Upgrading [[provider]]s is a very sensitive workflow and care is taken to prevent any malicious code getting introduced into the [[mini-runtime]]. 
 
 ## Last barrier, the [[birth_control]] policy
 

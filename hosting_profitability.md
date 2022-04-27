@@ -6,7 +6,7 @@
 # Other types of profitabilities in TEA
 ## Staking to a CML
 Staking to CML is .....TODO...
-Link to [[Staking to a CML]]
+Link to [[Staking_to_a_CML]]
 
 ## Staking to state machine
 TODO...

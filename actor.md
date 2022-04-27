@@ -9,5 +9,5 @@ There are many limitations for actors. For example:
 - The actors cannot control anything besides its own internal memory. That means it cannot send network data, cannot read/write any file, and cannot read/write any memory outside of its own.
 - The actors are short-lived and cannot keep running as a long-running service. Once the function executation is done, it loses all resources that it's occupied. 
 
-But you can use [[providers]] to overcome those limitations. Of course, the providers will check the [[capability]] of such an actor. If the actor doesn't have the proper capability, the request will be rejected. This is one layer of the security control.
+But you can use [[provider]]s to overcome those limitations. Of course, the providers will check the [[capability]] of such an actor. If the actor doesn't have the proper capability, the request will be rejected. This is one layer of the security control.
 
