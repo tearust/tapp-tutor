@@ -26,6 +26,6 @@ Layer one (blockchain) runs basic BFT to consider whether a testee passes or fai
 The content of the PCR hash includes all hardware and software fingerprints in the enclave. Any changes to the enclave may cause remote attestation failure.
 
 # Only verified enclaves can join the TEA network
-Every enclave will have a [[TeaID]]. This TEAID has an entry in our layer one that stores the verification status. When an enclave wants to contact another enclave, they'll first check their TEAID verification status. If the status is not "verified", the connection will not be estabilished.
+Every enclave will have a [[Tea_ID]]. This TEAID has an entry in our layer one that stores the verification status. When an enclave wants to contact another enclave, they'll first check their TEAID verification status. If the status is not "verified", the connection will not be estabilished.
 
 

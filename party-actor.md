@@ -116,7 +116,7 @@ The function `post_message` sends a txn (we sometimes call it sending [[Commands
 		&tea_codec::ACTOR_PUBKEY_PARTY_CONTRACT.to_string(),
 	)?;
 ```
-In this function call, `"post_message"` is the name of the API that [[statemachine-actor]] can handle.  `uuid` is the nonce that the back-end actor uses to check the execution result. `txn_bytes` is the body of txn. 
+In this function call, `"post_message"` is the name of the API that [[state_machine_actor]] can handle.  `uuid` is the nonce that the back-end actor uses to check the execution result. `txn_bytes` is the body of txn. 
 
 Let's follow the send_txn code in request.rs:
 ```

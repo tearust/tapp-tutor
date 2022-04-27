@@ -1,4 +1,4 @@
-In the TEA Party, the messages are stored in an [OrbitDB](orbitdb.org) database.
+In the TEA Party, the messages are stored in an [OrbitDB](http://orbitdb.org) database.
 OrbitDB is a non-relational database running on top of IPFS.
 
 Read this for more details on [[get_started#Storage| all storage options]]
