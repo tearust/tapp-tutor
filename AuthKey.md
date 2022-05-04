@@ -18,7 +18,7 @@ Tihis operation list is a JSON string that's signed using the user's blockchain 
 In other words, the design of TEA Project allows for the worst-case assumption that a developer's trying to steal users' money but the AuthKey logic inside the [[provider]] of [[state]] prevents this from happening.
 
 # How does it work?
-The TApp developer will set an AuthKey profile string (in JSON format) based what the end user's supposed to do after login. This profile should only include the necessary operations. If any more than the required operations are included it may cause the end user to reject signing and even appearing to the DAO.
+The TApp developer will set an AuthKey profile string (in JSON format) based what the end user's supposed to do after login. This profile should only include the necessary operations. If any more than the required operations are included it may cause the end user to reject signing the transaction and even report the TApp to the DAO.
 
 When a user logs in to a TApp, this AuthKey profile string will be part of the to-be-signed string and shown in the wallet UI. The end users should review these allowed operations before signing. 
 
