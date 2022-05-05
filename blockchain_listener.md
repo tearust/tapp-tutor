@@ -1,1 +1,3 @@
-TODO:...
+All [[State_Machine_Replica]] nodes run a layer1 client (either full client or light client). This layer 1 client will notify layer2 when layer1 events are triggered. The layer2 has monitor process to filter all events, only pick the events that are in the "waiting list" then call the layer2 [[state_machine_actor]]APIs. 
+
+In the future, when TEA Project is running above multiple layer1 main chains, there would be multiple blockchain listeners for each main chain.

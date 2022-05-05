@@ -1,1 +1,7 @@
-TODO:...
+Context (in state machine) records a list of operations that a [[commands]] **should** apply to the [[state]] if commit. But before the final commit, the state itself is not changed, the only to-be-changed operations are all stored in the context.
+
+The goal of context is atomic commit. All the operations are either commit successfully or not commited at all. 
+
+During the execution of [[commands]] in the [[state_machine_actor]]s, all operation will be inspected and make sure they would be successfully commited. This is very important. All operations inside context need to guaranteed successful. If any operation is fail, this command is abort, the context will be dropped and nothing to commit. The state has no change at all.
+
+In order to make sure the all operations inside context is guaranteed commited successfully, we require the command executed in single thread. All execution functions are **pure functional function**. That means all required parameters have been included in the function parameters, no additional external input or condition. The function result is deterministic. **Deterministic** is an important requirement in the [[state_machine_actor]] handler functions. If the deterministic is not guaranteed, the [[State_Machine]] in different [[State_Machine_Replica]] may not sync. In other words, **cannot reach consensus** and cause the [[state]] out of sync.  
