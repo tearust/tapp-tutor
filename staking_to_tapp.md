@@ -3,6 +3,8 @@ Each TApp has a token associated with it that's issued along a bonding curve, an
 1. The TApp token itself is issued along a bonding curve. As supply increases, the price increases with it.
 2. As consumers use the TApp, a consume action injects TEA into a TApp, only some of which goes to the developer. The rest of the TEA is exchanged for the TApp's tokens and then distributed proportionally to the TApp token holders.
 
+TApp tokens play an important role in the TEA Project ecosystem as it helps developers bootstrap their projects by enticing investors and other interested users to purchase its TApp token in the hopes of price appreciation (with the developer getting a share of every purchase).
+
 ## Bonding curve mechanism
 When we say that TApp tokens are issued along a bonding curve, that gives a mathematical formula correlating the total TApp token supply and its price, e.g. **price = sqrt(supply)**.
 
