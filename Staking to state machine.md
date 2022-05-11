@@ -1,4 +1,4 @@
-Staking is a way of earning mining revenue without having to setup a mining machine. CML that's staked to an active mining machine earns a percentage of that miner's rewards, either TEA revenue or TApp token dividend rewards.
+Staking is a way of earning mining revenue without having to setup a mining machine. Users can buy miner staking tokens to earn a percentage of a mining machine's rewards, either as TEA revenue or TApp token dividend rewards.
 
 The earlier a user buys a staking token, the higher percentage of rewards that's earned. That's because the earlier one buys into a bonding curve, the more chances they have for both price appreciation and a longer duration of dividend rewards from holding the token.
 
