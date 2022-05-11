@@ -12,12 +12,14 @@ In addition to earning dividends, B CML token holders will also benefit from the
 
 ## Revenue split between miners and mining stake token holders
 
+- 
 #########
 [Todo] The following section is speculative
 
 - What is the split between miners and token holders?
 - Is the portion that goes directly to the miners considered theta just like in the TApps (and thus will be the difference between the buy and sell curves of the mining stake token bonding curve)
 #########
+-
 
 All mining revenue will be split between the miner and mining stake token holders as follows:
 
