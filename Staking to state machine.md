@@ -16,7 +16,7 @@ Both of these options are exercised through buying the associated mining stake t
 Unlike hosting CML mining nodes who also earn TApp tokens from TApp hosting, the state machine validator nodes earn exclusively in TEA tokens. The following sections will provide more details on the block reward schedule for both state machine validator nodes as well as the hosting CML nodes. As you can see below, state machine CML validators earn over 3x as much TEA rewards compared to hosting CML nodes (although hosting CML also earn TApp tokens and sometimes TEA from hosting TApps).
 
 #### Preset mining cap and reward rate		
-The initial TEA reward per block starts at 9.06944 and reduces by 30% every half year until the end of the second year (measured from the token generation event). The total number of blocks in a half year is 2,635,200.
+The initial TEA reward per block starts at 9.06944 and reduces by 30% every half year until the end of the second year (measured from the token generation event). The total number of blocks in a half year is 2,635,200. Note that this schedule is still being worked out during the testing phases and is subject to change.
 
 #### Public service emmision rate with periodically reduction		
 
