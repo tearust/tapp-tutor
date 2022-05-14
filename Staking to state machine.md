@@ -4,23 +4,23 @@ The earlier a user buys a staking token, the higher percentage of rewards that's
 
 There are two options for users who want to stake to TEA Project mining nodes:
 
-- Staking to B CML nodes is where users earn part of an **individual B CML miner's** revenue stream.
-- Staking to A CML nodes (state machine validators) is where users can earn a share of **all A CML mining nodes'** revenue stream.
+- Staking to hosting CML nodes is where users earn part of an **individual hosting CML miner's** revenue stream. This includes public service rewards as well as rewards from hosting TApps.
+- Staking to state machine CML nodes (state machine validators) is where users can earn a share of **all state machine CML mining nodes'** revenue stream.
 
 Both of these options are exercised through buying the associated mining stake token that's issued along a bonding curve.
 
-- For B CML, a user would buy an individual miner's staking token.
-- For A CML, all users buy the same mining staking token that represents all A CML state machine mining validators.
+- For hosting CML, a user would buy an individual miner's staking token.
+- For state machine CML, all users buy the same mining staking token that represents all state machine mining validators.
 
 ## Calculating state machine validator rewards
-Unlinke B CML mining nodes who also earn TApp tokens from TApp hosting, the state machine validator nodes earn exclusively in TEA tokens. The following sections will provide more details on the block reward schedule for both state machine validator nodes as well as the B CML nodes. As you can see below, A CML state machine validators earn over 3x as much TEA rewards compared to B CML nodes.
+Unlike hosting CML mining nodes who also earn TApp tokens from TApp hosting, the state machine validator nodes earn exclusively in TEA tokens. The following sections will provide more details on the block reward schedule for both state machine validator nodes as well as the hosting CML nodes. As you can see below, state machine CML validators earn over 3x as much TEA rewards compared to hosting CML nodes (although hosting CML also earn TApp tokens and sometimes TEA from hosting TApps).
 
 #### Preset mining cap and reward rate		
 The initial TEA reward per block starts at 9.06944 and reduces by 30% every half year until the end of the second year (measured from the token generation event). The total number of blocks in a half year is 2,635,200.
 
 #### Public service emmision rate with periodically reduction		
 
-The initial mining rewards per block broken down by type of mining is as follows: 7T (A CML) + 2T (B CML) + .06944 (layer1 staking)
+The initial mining rewards per block broken down by type of mining is as follows: 7T (state machine CML) + 2T (hosting CML) + .06944 (layer1 staking).
 
 | Description  | Amount |
 |---|---|
