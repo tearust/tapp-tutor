@@ -1,11 +1,12 @@
-Unlike other blockchain chain projects that waste a lot of computing power in consensus competition, TEA project uses all computing power in useful tasks. Majorify of them are commercial tasks from client's application, which of course paid by the clients. Minority of them are public validation or DAO governance. These small part of tasks cannot get paid by any specific client, they would have to be paid by the DAO. They are all public services.
+Unlike other blockchain projects that waste lots of computing power in consensus competitions, the TEA project uses all of its computing power in useful tasks. The majority of them are commercial task which are, of course, paid by the clients benefitting from running them. A minority of them are public validation or DAO governance taks. These proportionally small number of tasks are not paid out by any specific client. Rather, they would have to be paid by the DAO as these are public services.
 
-Public services are including:
-- Remote attestation (thinking of jury duty in real life)
-- State machine maintainance (thinking of goverment expense)
-- DAO governance (thinking of election/voting in real life)
-- Other tasks that are necessary and benefit the public
+Public services include:
 
-The DAO will pay these public services from TEA token inflation. There are fixed number of TEA token (this number may change over the time but predictable) are minted in every block, and are paid to the miners who executed public services in this block.
+- Remote attestation (this is similar to jury duty in real life).
+- State machine maintenance (similar to goverment expenses).
+- DAO governance (similar to elections / voting in real life).
+- Other tasks that are necessary and benefit the public.
 
-Those inflation will be hedged by the TEA burning caused by [[CML_auction]].
+The DAO will pay these public services from TEA token inflation. There are a fixed number of TEA tokens minted in every block, which are paid to the miners who executed the public services in the block. The actual block reward number may change over time but will be predictable.
+
+The block reward inflation will be hedged by TEA burning as a consequence of [[CML_auction]]s.

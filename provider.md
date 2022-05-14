@@ -1,18 +1,19 @@
-Providers are utility static libraries inside [[mini-runtime]]. They are called by [[actor]]s inside the [[mini-runtime]]. Actors are webassembly code that can only run inside wasm virtual machine. But providers are native rust code that can run outside of the virtual machine. If you read the [[magic_of_wasm]] part of this document, you will know that webassembly is a very secure execution format due to it can run inside the wasm virtual machine. On the other hand, running inside virtual machine means it cannot call system function directly. Assuming you are writing Solidify smart contract, you will know that you cannot call OS API direclty because the smart contract will be running inside EVM. 
+Providers are static utility libraries inside of the [[mini-runtime]]. The providers are called by teh [[actor]]s inside the [[mini-runtime]]. Actors are WebAssembly code that can only run inside the Wasm virtual machine. But providers are native rust code that can run outside of the virtual machine. If you read the [[magic_of_wasm]] document, you'll know that WebAssembly is a very secure execution format that can run inside the Wasm virtual machine. On the other hand, running inside a virtual machine means it cannot call system functions directly. Assuming you're writing a Solidity smart contract, you'll know that you cannot call the OS API directly because the smart contract will be running inside the EVM. 
 
-What if the actor code wants to call a OS function to send data over network or save a number to the [[state]]? Providers are here for help.
+What if the actor code wants to call an OS function to send data over the network or to save a number to the [[state]]? That's when providers can step in to help.
 
 # Providers security concern
-There are many providers inside [[mini-runtime]]. They are all writen by the TEA Project core team at this moment. Because provider code is native code that run in OS privillage, it is much more powerful than the code inside actors. Powerful means more damage if abused. Actors code cannot do too much damage because the isolation and limitation of virtual machine. But if the actor code call provider code, the actor can make big damage if misused. In order to mitigate this thread, 
-- For every type of system function, we developed separate provider
-- Actor's developer need to choose and sign which providers it will use. This is also called [[capability]]
-- The capability information is public data. If an actor is not supposed to use a provider but claimed it will, the DAO or end user will reject this application
-- All providers code is carefully designed and audited.
+There are many providers inside the [[mini-runtime]]. These providers are all writen by the TEA Project core team at the moment. Because provider code is native code that runs with OS privileges, it's much more powerful than the code inside of actors. Powerful also means more damage if abused. Actors' code cannot do too much damage because of its isolation and the limitations imposed by the virtual machine. But if the actor code call provider code, the actor can make big damage if misused. In order to mitigate this threat:
 
-# Calling provider
-All functions inside provider are pure funcitonal function. That means they are **stateless**. The caller (from actor) needs to send all necessory parameters in the function and will get the result (bytes) in return value.
+- For every type of system function, we developed a separate provider.
+- The actor's developer needs to choose and sign which providers it will use. This is also called [[capability]].
+- The capability information is stored as public data. If an actor is not supposed to use a provider but claimed it will, the DAO or end-user will reject this application from executing.
+- All provider code is carefully designed and audited.
 
-Every function has a OP_CODE. All input values and out put values are Protobuf encoded. In most cases, the actor call to provider is happening inside the same encalve. There is no need for encryption and all calls are sync call.
+# Calling providers
+All functions inside of providers are pure functional functions. That means they are **stateless**. The caller (from the actor) needs to send all necessary parameters with the function and will get the result (bytes) in the return value.
+
+Every function has an OP_CODE. All input values and output values are Protobuf encoded. In most cases, the actor call to the provider is happening inside of the same encalve. There's no need for encryption and all calls are synced call.
 
 # Error handling
 TODO:
