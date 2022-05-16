@@ -1,35 +1,38 @@
-# Existing Layer2
-Since Blockchain was invented, genies never stop improving the technology trying to make blockchain run faster and cheaper. Two major directions
-- Improve the consensus: PoW -> PoS and other PoSomethingElse
-- Off chain computation: Layer2
+# Existing Blockchains Use Layer2s for Scalability
+Ever since Blockchain was invented, many projects have tried improving the technology to make blockchain run faster and cheaper. To make blockchains more scalable, there are two primary innovation paths:
 
-Basically, what the typical layer2 does
-- Collect a bunch of txns from layer1
-- Execute those txns off chain in layer2
+- Increasing scalability through improving the consensus: PoW -> PoS and other Proof of Whatever.
+- Increasing scalability through off-chain computation, i.e. a layer2.
+
+Improving consensus can only go so far as nodes inherently have to wait for each other to reach consensus while making allowances for Byzantine fault tolerance. That leaves layer2s as an area of focus for achieving scalability. Basically, a typical layer2 does the following:
+
+- Collects and batches txns from layer1.
+- Execute those txns off-chain in layer2.
 - Send the result back to layer1.
-- Layer1 run some kinds of verification then accept the result and update the blockchain
+- Layer1 runs some kind of verification, then accepts the result and updates the blockchain.
 
-The main problems here are
-- A layer2 has to be tightly bundled with a specific layer1
-- Verification is not cheap (i.e., ZKP). Possible resolver would be either new algorithm invented (unlikely) or hardware accelerator(ASIC)
+The main problems with layer2 are that:
 
-# A new type of Layer2
-Can we make a new layer2 that
-- Agnostic of any type of layer1. 
-- Above and across all major blockchains 
-- Minimized or zero verification
+- Each layer2 has to be tightly bundled with a specific layer1.
+- Verification is not cheap (e.g., ZKP). Possible resolver could be created either through inventing a new algorithm (unlikely) or hardware acceleration (ASIC).
 
-Let's think out of box by make a series of PoV changes
+# A New Type of Layer2
+Although layer2s seem like a promising start towards scaling blockchain, there is still room for improvement. 
+Can we make a new layer2 that is:
 
-# Verify result -> Verify envionrment
-If I ask you to verify the correctness of 82986.862 x 916019.1128 = 76017551703.3, what would you usually do? 
-I bet very few people will use pencil and paper to verify. If there is, how about Sqft(76017551703)? Well, I am pretty sure most of us just pick your phone and use the calculator or some kind of app to run such a formula. If the result shows correctly as I said, you verify it successfully. 
+- Agnostic of any type of layer1. Many innovative layer2s are currently tied to specific blockchains giving them only niche applicability in context of the entire crypto ecosystem.
+- Able to run above and across all major blockchains. If this new layer2 could run across any blockchain, then we have also solved another thorny problem currently in crypto, that of bridging funds from one chain to another.
+- Able to verify results with minimal or even zero verification. Calls back to layer1 to verify the result are a bottleneck that incurs conventional consensus and its typical transaction fees. What if we could verify the result without involving layer1 at all?
 
-Hold on! How do you know the reuslt of your calculator was correct? Have you recalculated manually? No, most likely you have not. Why? Because you trust Steve Jobs and his iPhone? Have you ever thought of this is a blind trust? 
+# Verify the Result by Verifying the Environment
+If I asked you to verify the correctness of 82986.862 x 916019.1128 = 76017551703.3, how would you go about doing so? 
+I bet very few people would use pencil and paper to verify the result. You could counter that it's technically doable, so let's try something harder like verifying that the Sqrt(251666496) = 15864. Well, I'm pretty sure most of us would just pick up our phone and use the calculator or some kind of app and key in the problem. If the result shows correctly, you'll likely be confident that you've verified it successfully. 
 
-It might be a blind trust, but most of us accepted this kind of trust because we trust the enviroinment. Because it is an iphone, or it is a CASIO. They are mass produced and widely used, reliable computation environment. If someone still doubt, they can just buy a few calculators from different brand, and run the same task to see if the result matches. 
+Hold on! How do you know the result of your calculator app was correct? Have you recalculated it manually? No, most likely you have not. Why? Because you trust Steve Jobs and his iPhone? Have you ever thought of this is a blind trust? 
 
-Let's move one step further. Assuming the calculator is another layer2 node. In what circumastances you can believe the result from that node without running the computing yourself again? Let's see, if 
+It might be a blind trust, but most of us accept this kind of trust because we trust the environment. Because it's an iPhone or it's a CASIO, they're all mass-produced and widely used, reliable computation environments. Of course doubters can buy a few calculators from different brands to run the same calculation themselves to see if the result matches. 
+
+Let's move one step further. Assuming the calculator is another layer2 node. In what circumstances you can believe the result from that node without running the computing yourself again? Let's see, if 
 - The integrity of that node can be remotely verified. We know it runs in a trustable condition
 - There are several randomly selected nodes running the same task seperately, and get the same result.
 
