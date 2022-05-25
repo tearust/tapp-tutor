@@ -94,6 +94,13 @@ The demo TEA party app is written in the following languages:
 The TEA Project doesn't require the developer to use the Rust programming language. You can use any programming language that compiles to WebAssembly. But at this moment, in order to understand our existing demo code, you'll need to use the Rust langauge. 
 
 ## Architecture knowledge
+
+## Layer2 without Rollups
+TEA Project is one of the layer2 solutions, but it has been designed with completely different mindset in comparison with Roll-up solutions. it focus on providing trustable computing infra hence [[The_future_and_innovation_of_layer2#We Trust the Result by Verifying the Environment|no need to verify computing results]] . This allows it to run at full speed of cloud computing.
+
+## Layer2 decoupled with layer1
+TEA Project runs [[The_future_and_innovation_of_layer2#Layer1 Agnostic|on top of different kinds of blockchains]] interchangably due to no rollup required. Layer 1 blockchain provides one of the three Roots of Trust. Other two roots of trust come from hardware. 
+
 ## Hardware
 The TEA Project is very different from many other blockchain projects. TEA relies on two types of hardware in order to reach special consensus: 
 

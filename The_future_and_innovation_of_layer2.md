@@ -23,7 +23,7 @@ Although layer2s seem like a promising start towards scaling blockchain, there i
 - Able to run above and across all major blockchains. If this new layer2 could run across any blockchain, then we have also solved another thorny problem currently in crypto, that of bridging funds from one chain to another.
 - Able to verify results with minimal or even zero verification. Calls back to layer1 to verify the result are a bottleneck that incurs conventional consensus and its typical transaction fees. What if we could verify the result without involving layer1 at all?
 
-# We Verify the Result by Verifying the Environment
+# We Trust the Result by Verifying the Environment
 One aspect of improving the layer2 experience is being able to verify the result of layer2 transactions while minimizing the involvement of layer1 during these verifications. It turns out that we can verify the result of layer2 transactions simply by verifying the environment in which the programming logic is run. For example, if I asked you to verify the correctness of 82986.862 x 916019.1128 = 76017551703.3, how would you go about doing it? Probably very few people would use pencil and paper to verify the result. 
 
 You could counter that a multiplication problem, while tedious to verify, is technically doable by hand. So let's try something harder like verifying that the Ln(99999255) = 18.42. Well, most of us would just pick up our phone and use the calculator or some kind of app and key in the problem. If the result shows correctly, you'll likely be confident that you've verified it successfully. 
