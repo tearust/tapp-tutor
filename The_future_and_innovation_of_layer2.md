@@ -4,6 +4,8 @@ Ever since Blockchain was invented, many projects have tried improving the techn
 - Increasing scalability through improving the consensus: PoW -> PoS and other Proof of Whatever.
 - Increasing scalability through off-chain computation, i.e. a layer2.
 
+![_1_Scaling](https://user-images.githubusercontent.com/86096370/170151337-7ae0cff9-0327-46bd-8134-9463a796ae34.png)
+
 Improving consensus can only go so far as nodes inherently have to wait for each other to reach consensus while making allowances for Byzantine fault tolerance. That leaves layer2s as an area of focus for achieving scalability. Basically, a typical layer2 does the following:
 
 - Collects and batches txns from layer1.
@@ -23,7 +25,9 @@ Although layer2s seem like a promising start towards scaling blockchain, there i
 - Able to run above and across all major blockchains. If this new layer2 could run across any blockchain, then we have also solved another thorny problem currently in crypto, that of bridging funds from one chain to another.
 - Able to verify results with minimal or even zero verification. Calls back to layer1 to verify the result are a bottleneck that incurs conventional consensus and its typical transaction fees. What if we could verify the result without involving layer1 at all?
 
-# We Verify the Result by Verifying the Environment
+![_blockchain_graph](https://user-images.githubusercontent.com/86096370/170151342-49421471-ba29-4843-85a9-1af33d955a81.png)
+
+# We Trust the Result by Verifying the Environment
 One aspect of improving the layer2 experience is being able to verify the result of layer2 transactions while minimizing the involvement of layer1 during these verifications. It turns out that we can verify the result of layer2 transactions simply by verifying the environment in which the programming logic is run. For example, if I asked you to verify the correctness of 82986.862 x 916019.1128 = 76017551703.3, how would you go about doing it? Probably very few people would use pencil and paper to verify the result. 
 
 You could counter that a multiplication problem, while tedious to verify, is technically doable by hand. So let's try something harder like verifying that the Ln(99999255) = 18.42. Well, most of us would just pick up our phone and use the calculator or some kind of app and key in the problem. If the result shows correctly, you'll likely be confident that you've verified it successfully. 
@@ -36,6 +40,8 @@ Let's move one step further and assume the calculator app is another layer2 node
 
 - The integrity of that node can be remotely verified, i.e. the node is in a trustable state from the perspective of any app that wants to run there.
 - There are several randomly selected nodes running the same task separately, and they all get the same result.
+
+![_Remote_Node_Attestation](https://user-images.githubusercontent.com/86096370/170151343-135f7428-e7b7-434f-80cb-a29ff5e60350.png)
 
 In this type of environment, can we trust the results? Well, a skeptic might say there are still some corner cases where:
 
